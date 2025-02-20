@@ -1,0 +1,55 @@
+# Ignorar directorios de compilación y de salida
+/build/
+/CMakeFiles/
+/CMakeCache.txt
+/CMakeUserPresets.json
+/Makefile
+/*.make
+/*.cmake
+/.vscode/
+/.vscode/
+
+# Ignorar binarios y ejecutables generados
+*.exe
+*.out
+*.o
+*.a
+*.so
+*.dll
+
+# Ignorar archivos temporales y de configuración generados por el IDE
+*.log
+*.tmp
+*.swp
+*.bak
+*.db
+
+# Ignorar carpetas específicas de vcpkg
+/vcpkg_installed/
+/vcpkg/downloads/
+
+# Ignorar archivos de MinGW
+*.dll.a
+*.exe
+*.a
+*.lib
+*.pdb
+
+# Archivos específicos de CMake que no deben ser versionados
+DartConfiguration.cmake
+*.cmake
+CMakeCache.txt
+
+# Ignorar carpetas de prueba
+/tests/
+
+# Ignorar archivos de configuración del sistema operativo (por ejemplo, en macOS o Windows)
+Thumbs.db
+Desktop.ini
+
+# Ignorar configuraciones de IDE (ejemplo para Visual Studio)
+.vs/
+
+# Archivos generados por CMake al configurar el entorno de vcpkg
+vcpkg*/installed/*
+vcpkg*/downloads/*

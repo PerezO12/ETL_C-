@@ -1,0 +1,10 @@
+{
+  "name": "John Doe",
+  "age": 29,
+  "city": "New York",
+  "languages": ["English", "Spanish", "German"],
+  "address": {
+    "street": "123 Main St",
+    "zipcode": "10001"
+  }
+}
