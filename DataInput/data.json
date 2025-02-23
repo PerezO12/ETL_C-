@@ -1,10 +1,58 @@
 {
-  "name": "John Doe",
-  "age": 29,
-  "city": "New York",
-  "languages": ["English", "Spanish", "German"],
-  "address": {
-    "street": "123 Main St",
-    "zipcode": "10001"
+  "library": {
+    "name": "Biblioteca Central",
+    "location": "Calle 123, Ciudad X",
+    "sections": [
+      {
+        "name": "Ficción",
+        "books": [
+          {
+            "title": "1984",
+            "author": "George Orwell",
+            "year": 1949,
+            "genres": ["Dystopian", "Political Fiction"],
+            "available": true
+          },
+          {
+            "title": "Cien años de soledad",
+            "author": "Gabriel García Márquez",
+            "year": 1967,
+            "genres": ["Magical Realism", "Fiction"],
+            "available": false
+          }
+        ]
+      },
+      {
+        "name": "Ciencia",
+        "books": [
+          {
+            "title": "Breve historia del tiempo",
+            "author": "Stephen Hawking",
+            "year": 1988,
+            "genres": ["Science", "Physics"],
+            "available": true
+          },
+          {
+            "title": "El gen egoísta",
+            "author": "Richard Dawkins",
+            "year": 1976,
+            "genres": ["Biology", "Evolution"],
+            "available": true
+          }
+        ]
+      }
+    ],
+    "staff": [
+      {
+        "name": "Ana Pérez",
+        "role": "Bibliotecaria",
+        "years_of_experience": 12
+      },
+      {
+        "name": "Carlos Gómez",
+        "role": "Asistente",
+        "years_of_experience": 5
+      }
+    ]
   }
 }

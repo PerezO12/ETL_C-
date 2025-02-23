@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <map>
+#include <vector>
 #include "../include/extraction.hpp"
 #include "../include/transformation.hpp"
 #include "../include/manager_db.hpp"
@@ -7,34 +9,43 @@
 using namespace std;
 
 int main() {
-    // Ruta completa del archivo JSON
-    string filePath = "";
-    cout << "La ruta: "; getline(cin, filePath);
-    (filePath == "") ? filePath = "../DataInput/data.json" : filePath;
+    string filePath;
+    cout << "Ingrese la ruta del archivo JSON (deje en blanco para usar la predeterminada): ";
+    getline(cin, filePath);
+    
+    if (filePath.empty()) {
+        filePath = "../DataInput/data.json";
+    }
 
-    //EXTACCION
+    //EXTRACCIÓN
     json data = extractData(filePath);
 
     if (data.is_null()) {
-        cerr << "No se pudieron obtener datos del archivo" << endl;
+        cerr << "No se pudieron obtener datos del archivo. Verifique la ruta.\n";
         return 1;
     }
 
-    //TRANSFORMACION
-    json transformedData = Transformation::transformData(data);
+    //TRANSFORMACIÓN Y MAPEADO
+    map<string, vector<string>> tablas;
+    mapearDatosDinamicamente(data, tablas);
 
-    // Acceder a los valores del JSON
-    string name = data["name"];
-    int age = data["age"];
-    string city = data["city"];
+    cout << "\n **Datos mapeados:**\n";
+    imprimirTablas(tablas);
 
-    cout << "Name: " << name << "\n";
-    cout << "Age: " << age << "\n";
-    cout << "City: " << city << "\n";
+    cout << "\n **Datos sin mapear:**\n" << data.dump(4) << "\n";
+
+    //MENSAJE FINAL
+    cout << "\nPresione Enter para finalizar...";
+    cin.ignore();
+    cin.get();
+
+    return 0;
+}
 
 
-    //conexion db
+//conexion db
     //todo: sacar de aqui
+    /*
     try
     {
         manager_db db("localhost", "postgres", "postgres", "123456", "5454");
@@ -50,7 +61,7 @@ int main() {
             )"
         );
 
-/*        db.execute_query("INSERT INTO personas (nombre, apellido, edad) VALUES ('Carlos', 'Gómez', 21)");
+        db.execute_query("INSERT INTO personas (nombre, apellido, edad) VALUES ('Carlos', 'Gómez', 21)");
         PGresult* res = db.execute_select_query("SELECT * FROM personas");
          if (res != nullptr) {
             // Procesar los resultados de la consulta
@@ -59,29 +70,9 @@ int main() {
                 cout << "Nombre: " << PQgetvalue(res, i, 0) << ", Apellido: " << PQgetvalue(res, i, 1) << endl;
             }
             PQclear(res);
-        } */
+        } 
     }
     catch(const exception& e)
     {
         cerr << "Error: " << e.what() << endl;
-    }
-    
-    
-    //const char* conninfo = "host=localhost dbname=postgres user=postgres password=123456 port=5454";
-/*     PGconn* conn = PQconnectdb(conninfo);
-    if (PQstatus(conn) != CONNECTION_OK) {
-        cerr << "Connection to database failed: " << PQerrorMessage(conn) << endl;
-        PQfinish(conn);
-        string a; 
-        cout << "Fallo: ";  cin >> a;
-        return 1;
-    };
-    cout << "Connectado a la DB" << endl;
-    PQfinish(conn); */
-
-
-    //mensaje de finalidad, borrar luego
-    string a; 
-    cout << "Precione cualquier tecla para finalizar: ";  cin >> a;
-    return 0;
-}
+    }*/

@@ -2,5 +2,5 @@
 
 #Paquetes
 
-- libpqxx
+- PostgreSQL
 - nlohmann/json

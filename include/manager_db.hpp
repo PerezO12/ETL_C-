@@ -17,6 +17,7 @@ class manager_db
         PGresult* execute_select_query(const string& query);
         //crear tablas
         void create_tables(const string& query); //luego hacer apra crear dinamicas
+        //void create_tables()
 
         //destructor de la conexión a la db
         ~manager_db();
