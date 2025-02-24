@@ -1,14 +1,20 @@
 #ifndef TRANSFORMATION_HPP
 #define TRANSFORMATION_HPP
 
-#include <nlohmann/json.hpp>
 #include <string>
+#include <iostream>
+#include <map>
+#include <vector>
+#include <nlohmann/json.hpp>
 
+using namespace std;
 using json = nlohmann::json;
 
-class Transformation {
-public:
-    static json transformData(const json& extractedData);
-};
+//devuelve un mapa donde la clave es el nombre de la tabla y el valor es un vector de sentencias INSERT.
+map<string, vector<string>> jsonToSqlMapper(const json& data, const json& config);
 
-#endif 
+
+vector<json> getJsonRecords(const json& data, const string& sourcePath);
+string getValueFromJson(const json& record, const string& jsonPath);
+
+#endif // TRANSFORMATION_HPP

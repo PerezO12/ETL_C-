@@ -1,3 +1,4 @@
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <map>
@@ -8,71 +9,76 @@
 
 using namespace std;
 
-int main() {
-    string filePath;
-    cout << "Ingrese la ruta del archivo JSON (deje en blanco para usar la predeterminada): ";
-    getline(cin, filePath);
-    
-    if (filePath.empty()) {
-        filePath = "../DataInput/data.json";
+
+json leerConfiguracion(const string& configFilePath) {
+    ifstream configFile(configFilePath);
+    if (!configFile) {
+        throw runtime_error("No se pudo abrir el archivo de configuración");
     }
-
-    //EXTRACCIÓN
-    json data = extractData(filePath);
-
-    if (data.is_null()) {
-        cerr << "No se pudieron obtener datos del archivo. Verifique la ruta.\n";
-        return 1;
-    }
-
-    //TRANSFORMACIÓN Y MAPEADO
-    map<string, vector<string>> tablas;
-    mapearDatosDinamicamente(data, tablas);
-
-    cout << "\n **Datos mapeados:**\n";
-    imprimirTablas(tablas);
-
-    cout << "\n **Datos sin mapear:**\n" << data.dump(4) << "\n";
-
-    //MENSAJE FINAL
-    cout << "\nPresione Enter para finalizar...";
-    cin.ignore();
-    cin.get();
-
-    return 0;
+    json config;
+    configFile >> config;
+    return config;
 }
 
 
-//conexion db
-    //todo: sacar de aqui
-    /*
-    try
-    {
-        manager_db db("localhost", "postgres", "postgres", "123456", "5454");
+int main() {
+    try {
+        //CONFIGURACION
 
-        db.create_tables(R"(
-                CREATE TABLE IF NOT EXISTS personas (
-                    id SERIAL PRIMARY KEY,
-                    nombre VARCHAR(100),
-                    apellido VARCHAR(100),
-                    edad INT,
-                    ciudad VARCHAR(100)
-                );
-            )"
+        //cargar configuracion
+        json config = leerConfiguracion("../config/config.json");
+
+        //ruta archivo de datos 
+        string dataFilePath = config["dataSource"]["filePath"];
+        /*************/
+
+        //EXTRACCIÓN
+        json data = extractData(dataFilePath);
+        if (data.is_null())  throw runtime_error("El archivo de datos JSON no se pudo cargar.");
+        
+    
+        cout << "*************************************************" << endl;
+        //TRANSFORMACIÓN Y MAPEADO
+        map<string, vector<string>> insertQueries = jsonToSqlMapper(data, config);
+        
+
+
+        //DB
+        //conectar base de datos
+        manager_db db(
+            config["database"]["host"],
+            config["database"]["dbname"],
+            config["database"]["user"],
+            config["database"]["password"],
+            config["database"]["port"]
         );
+        
+        // Opcional: Crear las tablas si no existen (aquí podrías llamar a create_tables())
+        // db.create_tables(tablasDefinidas); // tablasDefinidas puede ser generado durante la transformación
 
-        db.execute_query("INSERT INTO personas (nombre, apellido, edad) VALUES ('Carlos', 'Gómez', 21)");
-        PGresult* res = db.execute_select_query("SELECT * FROM personas");
-         if (res != nullptr) {
-            // Procesar los resultados de la consulta
-            int rows = PQntuples(res);
-            for (int i = 0; i < rows; ++i) {
-                cout << "Nombre: " << PQgetvalue(res, i, 0) << ", Apellido: " << PQgetvalue(res, i, 1) << endl;
+        // Ejecutar las consultas de inserción para cada tabla
+        
+        for (const auto& tablePair : insertQueries) {
+            cout << "Insertando datos en la tabla: " << tablePair.first << endl;
+            
+            for (const auto& query : tablePair.second) {
+                cout << 1 << "\n";
+                cout << query << "\n";
+                db.execute_query(query);
             }
-            PQclear(res);
-        } 
+        }
+        
+
+        //MENSAJE FINAL para que no se cierre
+        cout << "\nPresione Enter para finalizar...";
+        cin.ignore();
+        cin.get();
+    } catch (const exception& ex) {
+        cerr << "Error: " << ex.what() << endl;
+        cout << "\nPresione Enter para finalizar...";
+        cin.ignore();
+        cin.get();
+        return 1;
     }
-    catch(const exception& e)
-    {
-        cerr << "Error: " << e.what() << endl;
-    }*/
+    return 0;
+}

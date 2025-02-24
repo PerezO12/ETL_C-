@@ -1,6 +1,7 @@
 #include "../include/manager_db.hpp"
 
 #include <iostream>
+#include <unordered_set>
 #include <stdexcept>
 
 manager_db::manager_db(const string& host, const string& dbname, const string& user, const string& password, const string& port)
@@ -42,6 +43,7 @@ void manager_db::create_tables(const string& query) {
 
     PQclear(res);
 }
+
 
 //get
 PGresult* manager_db::execute_select_query(const string& query) {

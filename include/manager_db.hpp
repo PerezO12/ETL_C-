@@ -2,10 +2,11 @@
 #define MANAGER_DB_HPP
 
 #include <string>
+#include <map>
+#include <vector>
 #include <libpq-fe.h>
 
 using namespace std;
-
 class manager_db 
 {
     public:
@@ -16,9 +17,7 @@ class manager_db
         //select
         PGresult* execute_select_query(const string& query);
         //crear tablas
-        void create_tables(const string& query); //luego hacer apra crear dinamicas
-        //void create_tables()
-
+        void create_tables(const string& query);
         //destructor de la conexión a la db
         ~manager_db();
         
