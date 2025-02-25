@@ -11,8 +11,7 @@ using namespace std;
 using json = nlohmann::json;
 
 //devuelve un mapa donde la clave es el nombre de la tabla y el valor es un vector de sentencias INSERT.
-map<string, vector<string>> jsonToSqlMapper(const json& data, const json& config);
-
+map<string, vector<string>> jsonToSqlInsert(const json& data, const json& config);
 
 vector<json> getJsonRecords(const json& data, const string& sourcePath);
 string getValueFromJson(const json& record, const string& jsonPath);

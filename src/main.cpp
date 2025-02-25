@@ -39,7 +39,7 @@ int main() {
     
         cout << "*************************************************" << endl;
         //TRANSFORMACIÓN Y MAPEADO
-        map<string, vector<string>> insertQueries = jsonToSqlMapper(data, config);
+        map<string, vector<string>> insertQueries = jsonToSqlInsert(data, config);
         
 
 
@@ -54,6 +54,8 @@ int main() {
         );
         
         // Opcional: Crear las tablas si no existen (aquí podrías llamar a create_tables())
+        db.createTables(config);
+        db.createRelationships(config);
         // db.create_tables(tablasDefinidas); // tablasDefinidas puede ser generado durante la transformación
 
         // Ejecutar las consultas de inserción para cada tabla
@@ -62,23 +64,20 @@ int main() {
             cout << "Insertando datos en la tabla: " << tablePair.first << endl;
             
             for (const auto& query : tablePair.second) {
-                cout << 1 << "\n";
                 cout << query << "\n";
                 db.execute_query(query);
             }
         }
         
 
-        //MENSAJE FINAL para que no se cierre
-        cout << "\nPresione Enter para finalizar...";
-        cin.ignore();
-        cin.get();
+
     } catch (const exception& ex) {
         cerr << "Error: " << ex.what() << endl;
-        cout << "\nPresione Enter para finalizar...";
-        cin.ignore();
-        cin.get();
+        //MENSAJE FINAL para que no se cierre
+        cout << "\nPresione Enter para finalizar..."; cin.ignore(); cin.get();
         return 1;
     }
+    //MENSAJE FINAL para que no se cierre
+    cout << "\nPresione Enter para finalizar..."; cin.ignore(); cin.get();
     return 0;
 }
