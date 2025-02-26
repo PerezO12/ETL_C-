@@ -9,20 +9,21 @@
 
 using namespace std;
 using json = nlohmann::json;
-class manager_db 
+class managerDb 
 {
     public:
-        manager_db(const string& host, const string& dbname, const string& user, const string& password, const string& port);
+        managerDb(const string& host, const string& dbname, const string& user, const string& password, const string& port);
 
         //Insert
-        void execute_query(const string& query);
+        void executeQuery(const string& query);
+        string executeQueryReturningId(const string& query);
         //select
-        PGresult* execute_select_query(const string& query); //cambiar
+        PGresult* excecuteSelectQuery(const string& query); //cambiar
         //crear tablas
         void createTables(const json& config);
         void createRelationships(const json& config);
         //destructor de la conexión a la db
-        ~manager_db();
+        ~managerDb();
         
     private:
         PGconn* conn;

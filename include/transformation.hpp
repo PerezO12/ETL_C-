@@ -16,4 +16,7 @@ map<string, vector<string>> jsonToSqlInsert(const json& data, const json& config
 vector<json> getJsonRecords(const json& data, const string& sourcePath);
 string getValueFromJson(const json& record, const string& jsonPath);
 
+vector<string> generateRelationshipInsertQueries(const json& data, const json& config,
+    const unordered_map<string, unordered_map<string, int>>& tableIdMapping);
+
 #endif // TRANSFORMATION_HPP

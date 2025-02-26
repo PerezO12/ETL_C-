@@ -51,95 +51,107 @@ string getValueFromJson(const json& record, const string& jsonPath) {
 
 map<string, vector<string>> jsonToSqlInsert(const json& data, const json& config) {
     map<string, vector<string>> insertQueries;
+    
+    // orden ejecucion query tablas
+    vector<string> loadOrder = config["globalOptions"]["loadOrder"];
 
-    for (auto& [tableName, tableConfig] : config["tables"].items()) {
-
+    for (const auto& tableName : loadOrder) {
+        const json& tableConfig = config["tables"][tableName];
+        bool generatedId = tableConfig.value("generatedId", false);
         string sourcePath = tableConfig["sourcePath"];
-        //cout << "sourcePath: " << sourcePath <<"\n" ;
+
         vector<json> records = getJsonRecords(data, sourcePath);
-        //cout << "records: " << records <<"\n" ;
         vector<string> queries;
 
         for (const auto& record : records) {
             ostringstream query;
-            query << "INSERT INTO \"" << tableName << "\" (";
-            
             vector<string> columns;
             vector<string> values;
-            
+
+            // columnas
             for (const auto& col : tableConfig["columns"]) {
                 string colName = col["name"];
                 string jsonPath = col["jsonPath"];
                 string value = getValueFromJson(record, jsonPath);
 
+                // Saltar columna si es un ID generado
+                if (col.value("isGeneratedId", false)) continue;
+
                 columns.push_back("\"" + colName + "\"");
-                values.push_back( "'" + value + "'");
+                values.push_back("'" + value + "'");
             }
-            
-            for (size_t i = 0; i < columns.size(); ++i) {
-                query << columns[i];
-                if (i < columns.size() - 1)
-                    query << ", ";
+
+            query << "INSERT INTO \"" << tableName << "\" ("
+                  << join(columns, ", ") << ") VALUES (" 
+                  << join(values, ", ") << ")";
+
+            // Añadir RETURNING id si hay IDs generados
+            if (generatedId) {
+                query << " RETURNING id";
             }
-            query << ") VALUES (";
-            
-            for (size_t i = 0; i < values.size(); ++i) {
-                query << values[i];
-                if (i < values.size() - 1)
-                    query << ", ";
-            }
-            query << ");";
-            
-            queries.push_back(query.str());
+
+            queries.push_back(query.str() + ";");
         }
+
         insertQueries[tableName] = queries;
-    }
-    //procesar relaciones 
-    //todo: de momento solo manejara Many-To-Many
-    if (config.contains("relationships")) {
-        for (const auto& rel : config["relationships"]) {
-            if (rel["type"] != "MANY_TO_MANY") continue;
-            
-            string tableA = rel["tableA"];
-            string tableB = rel["tableB"];
-            string junctionTable = rel["junctionTable"];
-            string fkA = rel["foreignKeys"][tableA];
-            string fkB = rel["foreignKeys"][tableB];
-
-            vector<string> relQueries;
-
-            vector<json> recordsA = getJsonRecords(data, config["tables"][tableA]["sourcePath"]);
-            for (const auto& recordA : recordsA) {
-                string idA = getValueFromJson(recordA, "id");
-
-                vector<json> recordsB = getJsonRecords(recordA, tableB);
-                for (const auto& recordB : recordsB) {
-                    string idB = getValueFromJson(recordB, "id");
-
-                    if (idA.empty() || idB.empty()) continue;
-
-                    ostringstream relQuery;
-                    relQuery << "INSERT INTO \"" << junctionTable << "\" (\"" << fkA << "\", \"" << fkB << "\"";
-
-                    vector<string> relValues = {"'" + idA + "'", "'" + idB + "'"};
-
-                    if (rel.contains("extraColumns")) {
-                        for (const auto& col : rel["extraColumns"]) {
-                            string colName = col["name"];
-                            string value = getValueFromJson(recordB, col["jsonPath"]);
-                            relQuery << ", \"" << colName << "\"";
-                            relValues.push_back(value.empty() ? "NULL" : "'" + value + "'");
-                        }
-                    }
-                    
-                    relQuery << ") VALUES (" << join(relValues, ", ") << ");";
-                    relQueries.push_back(relQuery.str());
-                }
-            }
-            insertQueries[junctionTable] = relQueries;
-        }
     }
 
     return insertQueries;
 }
 
+//todo: revizar cambiar y arreglar
+vector<string> generateRelationshipInsertQueries(const json& data, const json& config,
+    const unordered_map<string, unordered_map<string, int>>& tableIdMapping) {
+
+    vector<string> relQueries;
+    if (!config.contains("relationships"))
+        return relQueries;
+
+    for (const auto& rel : config["relationships"]) {
+        if (rel["type"] != "MANY_TO_MANY")
+            continue;
+
+        string tableA = rel["tableA"];
+        string tableB = rel["tableB"];
+        string junctionTable = rel["junctionTable"];
+        string fkA = rel["foreignKeys"][tableA];
+        string fkB = rel["foreignKeys"][tableB];
+
+        // Se obtienen los registros de la tabla A a partir del JSON
+        vector<json> recordsA = getJsonRecords(data, config["tables"][tableA]["sourcePath"]);
+        for (const auto& recordA : recordsA) {
+            // Se utiliza "uniqueKey" como identificador único para mapear el registro
+            string uniqueKeyA = recordA.contains("uniqueKey") ? getValueFromJson(recordA, "uniqueKey") : "";
+            if (uniqueKeyA.empty() || tableIdMapping.find(tableA) == tableIdMapping.end() ||
+                tableIdMapping.at(tableA).find(uniqueKeyA) == tableIdMapping.at(tableA).end())
+                continue;
+            int idA = tableIdMapping.at(tableA).at(uniqueKeyA);
+
+            // Se asume que los registros de tableB están anidados en recordA bajo la clave con el nombre de tableB
+            vector<json> recordsB = getJsonRecords(recordA, tableB);
+            for (const auto& recordB : recordsB) {
+                string uniqueKeyB = recordB.contains("uniqueKey") ? getValueFromJson(recordB, "uniqueKey") : "";
+                if (uniqueKeyB.empty() || tableIdMapping.find(tableB) == tableIdMapping.end() ||
+                    tableIdMapping.at(tableB).find(uniqueKeyB) == tableIdMapping.at(tableB).end())
+                    continue;
+                int idB = tableIdMapping.at(tableB).at(uniqueKeyB);
+
+                ostringstream query;
+                query << "INSERT INTO \"" << junctionTable << "\" (\"" << fkA << "\", \"" << fkB << "\"";
+                vector<string> values = { to_string(idA), to_string(idB) };
+
+                if (rel.contains("extraColumns")) {
+                    for (const auto& col : rel["extraColumns"]) {
+                        string colName = col["name"];
+                        string value = getValueFromJson(recordB, col["jsonPath"]);
+                        query << ", \"" << colName << "\"";
+                        values.push_back(value.empty() ? "NULL" : "'" + value + "'");
+                    }
+                }
+                query << ") VALUES (" << join(values, ", ") << ");";
+                relQueries.push_back(query.str());
+            }
+        }
+    }
+    return relQueries;
+}

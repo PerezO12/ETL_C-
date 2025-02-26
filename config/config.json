@@ -1,70 +1,109 @@
 {
-    "database": {
+  "database": {
       "host": "localhost",
       "dbname": "postgres",
       "user": "postgres",
       "password": "123456",
       "port": "5454"
-    },
-    "globalOptions": {
+  },
+  "globalOptions": {
       "truncateBeforeLoad": true,
       "batchSize": 1000,
-      "logLevel": "DEBUG"
-    },
-    "dataSource": {
+      "logLevel": "DEBUG",
+      "loadOrder": ["profesores", "asignaturas", "alumnos"]
+  },
+  "dataSource": {
       "filePath": "../data/datos.json"
-    },
-    "tables": {
+  },
+  "tables": {
       "alumnos": {
-        "sourcePath": "universidad.alumnos",
-        "truncate": true,
-        "columns": [
-          { "name": "nombre", "jsonPath": "nombre", "type": "varchar" },
-          { "name": "apellido", "jsonPath": "apellido", "type": "varchar" },
-          { "name": "sexo", "jsonPath": "sexo", "type": "varchar" },
-          { "name": "edad", "jsonPath": "edad", "type": "int" },
-          { "name": "facultad", "jsonPath": "facultad", "type": "varchar" }
-        ]
+          "sourcePath": "universidad.alumnos",
+          "truncate": false,
+          "columns": [
+              { "name": "nombre", "jsonPath": "nombre", "type": "varchar" },
+              { "name": "apellido", "jsonPath": "apellido", "type": "varchar" },
+              { "name": "sexo", "jsonPath": "sexo", "type": "varchar" },
+              { "name": "edad", "jsonPath": "edad", "type": "int" },
+              { "name": "facultad", "jsonPath": "facultad", "type": "varchar" }
+          ],
+          "generatedId": true
       },
       "asignaturas": {
-        "sourcePath": "universidad.asignaturas",
-        "truncate": false,
-        "columns": [
-          { "name": "nombre", "jsonPath": "nombre", "type": "varchar" },
-          { "name": "codigo", "jsonPath": "codigo", "type": "varchar" },
-          { "name": "profesor", "jsonPath": "profesor", "type": "varchar" },
-          { "name": "facultad", "jsonPath": "facultad", "type": "varchar" },
-          { "name": "horarios", "jsonPath": "horarios", "type": "varchar" }
-        ]
+          "sourcePath": "universidad.asignaturas",
+          "truncate": false,
+          "columns": [
+              { "name": "nombre", "jsonPath": "nombre", "type": "varchar" },
+              { "name": "codigo", "jsonPath": "codigo", "type": "varchar" },
+              { 
+                  "name": "profesor_id", 
+                  "jsonPath": "profesor",
+                  "type": "int",
+                  "lookup": { 
+                      "table": "profesores",
+                      "matchColumns": {
+                          "nombre": "nombre",
+                          "apellido": "apellido"
+                      }
+                  }
+              },
+              { "name": "facultad", "jsonPath": "facultad", "type": "varchar" },
+              { "name": "horarios", "jsonPath": "horarios", "type": "varchar" }
+          ],
+          "generatedId": true
       },
       "profesores": {
-        "sourcePath": "universidad.profesores",
-        "truncate": false,
-        "columns": [
-          { "name": "nombre", "jsonPath": "nombre", "type": "varchar" },
-          { "name": "apellido", "jsonPath": "apellido", "type": "varchar" },
-          { "name": "sexo", "jsonPath": "sexo", "type": "varchar" },
-          { "name": "edad", "jsonPath": "edad", "type": "int" },
-          { "name": "catedra", "jsonPath": "catedra", "type": "varchar" },
-          { "name": "aulas", "jsonPath": "aulas", "type": "varchar" },
-          { "name": "cantidad_alumnos", "jsonPath": "cantidad_alumnos", "type": "int" }
-        ]
+          "sourcePath": "universidad.profesores",
+          "truncate": false,
+          "columns": [
+              { "name": "nombre", "jsonPath": "nombre", "type": "varchar" },
+              { "name": "apellido", "jsonPath": "apellido", "type": "varchar" },
+              { "name": "sexo", "jsonPath": "sexo", "type": "varchar" },
+              { "name": "edad", "jsonPath": "edad", "type": "int" },
+              { "name": "catedra", "jsonPath": "catedra", "type": "varchar" },
+              { "name": "aulas", "jsonPath": "aulas", "type": "varchar" },
+              { "name": "cantidad_alumnos", "jsonPath": "cantidad_alumnos", "type": "int" }
+          ],
+          "generatedId": true
       }
-    },
-    "relationships": [
+  },
+  "relationships": [
       {
-        "tableA": "alumnos",
-        "tableB": "asignaturas",
-        "type": "MANY_TO_MANY",
-        "foreignKeys": {
-          "alumnos": "alumno_id",
-          "asignaturas": "asignatura_id"
-        },
-        "junctionTable": "alumno_asignatura",
-        "extraColumns": [
-          { "name": "notas", "jsonPath": "notas", "type": "varchar" }
-        ]
+          "type": "MANY_TO_MANY",
+          "tables": ["alumnos", "asignaturas"],
+          "junctionTable": "alumno_asignatura",
+          "columns": [
+              {
+                  "name": "alumno_id",
+                  "source": {
+                      "table": "alumnos",
+                      "matchColumns": {
+                          "nombre": "alumnos.nombre",
+                          "apellido": "alumnos.apellido",
+                          "facultad": "alumnos.facultad"
+                      }
+                  }
+              },
+              {
+                  "name": "asignatura_id",
+                  "source": {
+                      "table": "asignaturas",
+                      "matchColumns": {
+                          "codigo": "asignaturas.codigo"
+                      }
+                  }
+              },
+              { 
+                  "name": "notas", 
+                  "jsonPath": "asignaturas[*].notas", 
+                  "type": "jsonb" 
+              }
+          ]
+      },
+      {
+        "type": "ONE_TO_MANY",
+        "tablaA": "asignaturas",
+        "tablaB": "profesores",
+        "foreignKeys": "profesor_id"
       }
-    ]
+  ]
 }
-  

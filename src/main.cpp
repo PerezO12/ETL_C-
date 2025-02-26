@@ -27,25 +27,21 @@ int main() {
 
         //cargar configuracion
         json config = leerConfiguracion("../config/config.json");
-
         //ruta archivo de datos 
         string dataFilePath = config["dataSource"]["filePath"];
         /*************/
-
         //EXTRACCIÓN
         json data = extractData(dataFilePath);
         if (data.is_null())  throw runtime_error("El archivo de datos JSON no se pudo cargar.");
-        
-    
         cout << "*************************************************" << endl;
+
         //TRANSFORMACIÓN Y MAPEADO
         map<string, vector<string>> insertQueries = jsonToSqlInsert(data, config);
         
 
-
         //DB
         //conectar base de datos
-        manager_db db(
+        managerDb db(
             config["database"]["host"],
             config["database"]["dbname"],
             config["database"]["user"],
@@ -56,20 +52,21 @@ int main() {
         // Opcional: Crear las tablas si no existen (aquí podrías llamar a create_tables())
         db.createTables(config);
         db.createRelationships(config);
-        // db.create_tables(tablasDefinidas); // tablasDefinidas puede ser generado durante la transformación
 
-        // Ejecutar las consultas de inserción para cada tabla
-        
+        vector<string> ids;
+        //ejecucion de las consultas
         for (const auto& tablePair : insertQueries) {
             cout << "Insertando datos en la tabla: " << tablePair.first << endl;
             
             for (const auto& query : tablePair.second) {
                 cout << query << "\n";
-                db.execute_query(query);
+                ;
+                ids.push_back(db.executeQueryReturningId(query));
             }
         }
-        
-
+        for (const auto& id : ids) {
+            cout << "id: " << id <<  endl;
+        }
 
     } catch (const exception& ex) {
         cerr << "Error: " << ex.what() << endl;
