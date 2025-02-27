@@ -1,20 +1,10 @@
 #ifndef EXTRACTION_HPP
 #define EXTRACTION_HPP
 
-#include <nlohmann/json.hpp>
-#include <string>
-#include <map>
-#include <vector>
-#include <iostream> 
-
-using namespace std;
-using json = nlohmann::json;
+#include "common_types.hpp"
 
 json extractData(const string& filePath);
-
-//void mapearDatosDinamicamente(const json& j, map<string, vector<string>>& tablas, RelationsMap& relations, const string& currentTable = "");
-//void imprimirTablas(const map<string, vector<string>>& tablas);
-//void imprimirRelaciones(const RelationsMap& relations);
-
+vector<json> getJsonRecords(const json& data, const string& sourcePath, const string& rootPath = "");  
+string getValueFromJson(const json& record, const string& jsonPath);
 
 #endif // EXTRACTION_HPP

@@ -1,9 +1,7 @@
 #ifndef MANAGER_DB_HPP
 #define MANAGER_DB_HPP
 
-#include <string>
-#include <map>
-#include <vector>
+
 #include <libpq-fe.h>
 #include <nlohmann/json.hpp>
 

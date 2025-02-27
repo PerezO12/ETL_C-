@@ -3,12 +3,15 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <variant>
 #include "../include/extraction.hpp"
 #include "../include/transformation.hpp"
 #include "../include/manager_db.hpp"
 
 using namespace std;
 
+
+using IdType = std::variant<int, string>;
 
 json leerConfiguracion(const string& configFilePath) {
     ifstream configFile(configFilePath);
@@ -19,6 +22,42 @@ json leerConfiguracion(const string& configFilePath) {
     configFile >> config;
     return config;
 }
+void insertarMapearEjecutarQuerys(managerDb& db, const json& data, const json& config, map<string, map<string, int>>& idCache) {
+    const string rootPath = config["dataSource"].value("rootPath", "");
+    const json& transformations = config["transformations"];
+    cout<<"entre: " << endl;
+    for (const string& tableName : config["globalOptions"]["loadOrder"]) {
+        const json& tableConfig = config["tables"][tableName];
+        vector<json> records = getJsonRecords(data, tableConfig["sourcePath"], rootPath);
+        vector<string> queries = jsonToSqlInsert(tableName, records, data, config, idCache);
+
+        for (size_t i = 0; i < queries.size(); ++i) {
+            cout << queries[i] << "\n";
+            int id = stoi(db.executeQueryReturningId(queries[i]));
+            string naturalKey;
+            if (tableConfig.contains("naturalKey")) {
+                vector<string> keyParts;
+                for (const auto& field : tableConfig["naturalKey"]) {
+                    string rawValue = records[i][field].get<string>();
+
+                    /* if (tableConfig["transforms"].contains(field)) {
+                        string transformName = tableConfig["transforms"][field];
+                        rawValue = applyTransformation(rawValue, transformName, transformations);
+                    } */
+
+                    keyParts.push_back(rawValue);
+                }
+                naturalKey = join(keyParts, "_"); 
+                //cout << "\nnaturalKey" << naturalKey << endl;
+            } else {
+                throw runtime_error("Falta 'naturalKey' en la configuración de la tabla: " + tableName);
+            }
+
+            idCache[tableName][naturalKey] = id;
+        }
+    }
+}
+
 
 
 int main() {
@@ -36,8 +75,9 @@ int main() {
         cout << "*************************************************" << endl;
 
         //TRANSFORMACIÓN Y MAPEADO
-        map<string, vector<string>> insertQueries = jsonToSqlInsert(data, config);
+        map<string, map<string, int>> idCache;
         
+        //map<string, vector<string>> insertQueries = jsonToSqlInsertt2(data, config, idCache);
 
         //DB
         //conectar base de datos
@@ -52,29 +92,20 @@ int main() {
         // Opcional: Crear las tablas si no existen (aquí podrías llamar a create_tables())
         db.createTables(config);
         db.createRelationships(config);
-
-        vector<string> ids;
+        
+        
         //ejecucion de las consultas
-        for (const auto& tablePair : insertQueries) {
-            cout << "Insertando datos en la tabla: " << tablePair.first << endl;
-            
-            for (const auto& query : tablePair.second) {
-                cout << query << "\n";
-                ;
-                ids.push_back(db.executeQueryReturningId(query));
-            }
-        }
-        for (const auto& id : ids) {
-            cout << "id: " << id <<  endl;
-        }
+        insertarMapearEjecutarQuerys(db, data, config, idCache);
 
     } catch (const exception& ex) {
         cerr << "Error: " << ex.what() << endl;
         //MENSAJE FINAL para que no se cierre
         cout << "\nPresione Enter para finalizar..."; cin.ignore(); cin.get();
         return 1;
-    }
+    } 
     //MENSAJE FINAL para que no se cierre
     cout << "\nPresione Enter para finalizar..."; cin.ignore(); cin.get();
     return 0;
 }
+
+

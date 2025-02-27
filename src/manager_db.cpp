@@ -101,35 +101,81 @@ void managerDb::createTables(const json& config) {
         }
     }
 }
-
+//todo:falta crear las relaciones
 void managerDb::createRelationships(const json& config) {
     if (!config.contains("relationships")) {
         cout << "No hay relaciones definidas en la configuración." << endl;
         return;
     }
-    for (auto& relation : config["relationships"]) {
-        string junctionTable = relation["junctionTable"];
+    for (const auto& relation : config["relationships"]) {
+        string type = relation["type"].get<string>();
 
-        string query = "CREATE TABLE IF NOT EXISTS " + junctionTable + " (";
-        query += relation["foreignKeys"][ relation["tableA"].get<string>() ].get<string>() + " INT, ";
-        query += relation["foreignKeys"][ relation["tableB"].get<string>() ].get<string>() + " INT";
-
-        if (relation.contains("extraColumns")) {
-            for (const auto& extra : relation["extraColumns"]) {
-                query += ", " + extra["name"].get<string>() + " " + extra["type"].get<string>();
+        if (type == "MANY_TO_MANY") {
+            string junctionTable = relation["junctionTable"].get<string>();
+            string query = "CREATE TABLE IF NOT EXISTS " + junctionTable + " (";
+            bool first = true;
+            for (const auto& col : relation["columns"]) {
+                if (!first) {
+                    query += ", ";
+                }
+                string colName = col["name"].get<string>();
+                string colType;
+                if (col.contains("type")) {
+                    colType = col["type"].get<string>();
+                } 
+                else if (col.contains("source")) {
+                    colType = "INT";
+                } else {
+                    colType = "VARCHAR";
+                }
+                query += colName + " " + colType;
+                first = false;
             }
-        }
-        query += ");";
-        //IPMRIMIR QUERY
-        cout << query << "\n";
-        try {
-            executeQuery(query);
-            cout << "Tabla de relación " << junctionTable << " creada (o ya existía)." << endl;
-        } catch (const exception& e) {
-            cerr << "Error al crear la tabla de relación " << junctionTable << ": " << e.what() << endl;
+            query += ");";
+            cout << query << "\n";
+            try {
+                executeQuery(query);
+                cout << "Tabla de relación " << junctionTable << " creada (o ya existía)." << endl;
+            } catch (const exception& e) {
+                cerr << "Error al crear la tabla de relación " << junctionTable << ": " << e.what() << endl;
+            }
+        } 
+        else if (type == "ONE_TO_MANY") {
+            string oneTable = relation["oneTable"].get<string>();
+            string manyTable = relation["manyTable"].get<string>();
+            for (const auto& col : relation["columns"]) {
+                string fkColumn = col["name"].get<string>();
+                string query = "ALTER TABLE " + manyTable + " ADD COLUMN IF NOT EXISTS " + fkColumn + " INT;";
+                cout << query << "\n";
+                try {
+                    executeQuery(query);
+                    cout << "Columna " << fkColumn << " agregada a la tabla " << manyTable << "." << endl;
+                } catch (const exception& e) {
+                    cerr << "Error al agregar columna " << fkColumn << " a la tabla " << manyTable << ": " << e.what() << endl;
+                }
+            }
+        } 
+        else if (type == "ONE_TO_ONE") {
+            string tableA = relation["tableA"].get<string>();
+            string tableB = relation["tableB"].get<string>();
+            for (const auto& col : relation["columns"]) {
+                string fkColumn = col["name"].get<string>();
+                string query = "ALTER TABLE " + tableB + " ADD COLUMN IF NOT EXISTS " + fkColumn + " INT;";
+                cout << query << "\n";
+                try {
+                    executeQuery(query);
+                    cout << "Columna " << fkColumn << " agregada a la tabla " << tableB << "." << endl;
+                } catch (const exception& e) {
+                    cerr << "Error al agregar columna " << fkColumn << " a la tabla " << tableB << ": " << e.what() << endl;
+                }
+            }
+        } 
+        else {
+            cout << "Tipo de relación desconocido: " << type << endl;
         }
     }
 }
+
 
 //destructor
 managerDb::~managerDb() {

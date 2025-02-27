@@ -1,22 +1,18 @@
 #ifndef TRANSFORMATION_HPP
 #define TRANSFORMATION_HPP
 
-#include <string>
-#include <iostream>
-#include <map>
-#include <vector>
-#include <nlohmann/json.hpp>
 
-using namespace std;
-using json = nlohmann::json;
+#include "extraction.hpp"
+#include "common_types.hpp"
+
+
 
 //devuelve un mapa donde la clave es el nombre de la tabla y el valor es un vector de sentencias INSERT.
-map<string, vector<string>> jsonToSqlInsert(const json& data, const json& config);
+//map<string, vector<string>> jsonToSqlInsertt2(const json& data, const json& config, map<string, map<string, IdType>>& idCache);
 
-vector<json> getJsonRecords(const json& data, const string& sourcePath);
-string getValueFromJson(const json& record, const string& jsonPath);
 
-vector<string> generateRelationshipInsertQueries(const json& data, const json& config,
-    const unordered_map<string, unordered_map<string, int>>& tableIdMapping);
+string applyTransformation(const string& value, const string& transformName, const json& transformationsConfig);
+vector<string> jsonToSqlInsert(const string& tableName, const vector<json>& recordsTable, const json& data, const json& config, map<string, map<string, int>>& idCache);
+string join(const vector<string>& elements, const string& separator);
 
 #endif // TRANSFORMATION_HPP
