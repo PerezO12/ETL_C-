@@ -7,7 +7,7 @@
     "port": "5454"
   },
   "globalOptions": {
-    "truncateBeforeLoad": true,
+    "truncateBeforeLoad": false,
     "batchSize": 1000,
     "logLevel": "DEBUG",
     "loadOrder": ["profesores", "asignaturas", "alumnos"]
@@ -19,7 +19,7 @@
   "tables": {
     "alumnos": {
       "sourcePath": "alumnos",
-      "generatedId": true,
+      "generatedPK": true,
       "naturalKey": ["nombre", "apellido"],
       "columns": [
         { 
@@ -46,9 +46,8 @@
     },
     "asignaturas": {
       "sourcePath": "asignaturas",
-      "generatedId": true,
+      "generatedPK": true,
       "naturalKey": ["nombre"],
-      "transform": "trim_uppercase",
       "columns": [
         { 
           "name": "nombre", 
@@ -66,15 +65,14 @@
           "type": "int",
           "lookup": {
             "table": "profesores",
-            "naturalKey": ["nombre", "apellido"],
-            "transform": "split_by_space"
+            "naturalKey": ["nombre", "apellido"]
           }
         }
       ]
     },
     "profesores": {
       "sourcePath": "profesores",
-      "generatedId": true,
+      "generatedPK": true,
       "naturalKey": ["nombre", "apellido"],
       "columns": [
         { 
@@ -124,6 +122,7 @@
       "columns": [
         {
           "name": "alumno_id",
+          "type": "int",
           "source": {
             "table": "alumnos",
             "naturalKey": ["nombre", "apellido"]
@@ -131,14 +130,15 @@
         },
         {
           "name": "asignatura_id",
+          "type": "int",
           "source": {
             "table": "asignaturas",
-            "naturalKey": ["codigo"]
+            "naturalKey": ["nombre"]
           }
         },
         { 
           "name": "notas", 
-          "jsonPath": "asignaturas[*].notas", 
+          "jsonPath": "alumnos.asignaturas.notas", 
           "type": "jsonb" 
         }
       ]
