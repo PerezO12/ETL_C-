@@ -45,6 +45,70 @@ vector<string> jsonToSqlInsert(const string& tableName, const vector<json>& reco
         vector<string> columns;
         vector<string> values;
 
+        //cout << "\n recordTable: " << recordTable.dump(4);
+
+        for (const auto& col : tableConfig["columns"]) {
+            if (col.contains("lookup")) continue;
+            string colName = col["name"];
+            string jsonPath = col["jsonPath"];
+            string value = getValueFromJson(recordTable, jsonPath);
+
+            if (col.contains("transform")) {
+                value = applyTransformation(value, col["transform"], transformations);
+            }
+
+            processedValues[colName] = value;
+            columns.push_back("\"" + colName + "\"");
+            values.push_back("'" + value + "'");
+        }
+
+        for (const auto& col : tableConfig["columns"]) {
+            if (!col.contains("lookup")) continue;
+
+            const json& lookup = col["lookup"];
+            const json& rutaKey = col["jsonPath"];
+            const json& transform = lookup["transform"];
+            string refTable = lookup["table"];
+
+            string valorFK = getValueFromJson(recordTable, rutaKey);
+            valorFK = Utility::replaceSpacesWithUnderscore(valorFK);
+            cout << endl << "tabla transformation:" << endl;
+            cout << endl << "\nvalorFK: " << valorFK << endl;
+            cout << endl << "\nrefTable: " << refTable << endl;
+
+            if (idCache[refTable].find(valorFK) == idCache[refTable].end()) {
+                throw runtime_error("Clave no encontrada en " + refTable + ": " + valorFK);
+            }
+
+            string lookupColumn = col["name"];
+            processedValues[lookupColumn] = to_string(idCache[refTable][valorFK]);
+            columns.push_back("\"" + lookupColumn + "\"");
+            values.push_back(processedValues[lookupColumn]);
+        }
+        // consulta
+        ostringstream query;
+        query << "INSERT INTO \"" << tableName << "\" ("
+              << join(columns, ", ") << ") VALUES (" << join(values, ", ") << ")";
+        
+        if (tableConfig["generatedId"]) {
+            query << " RETURNING id";
+        }
+
+        queries.push_back(query.str() + ";");
+    }
+    return queries;
+}
+
+/* 
+vector<string> jsonToSqlInsert(const string& tableName, const vector<json>& recordsTable, const json& data, const json& config, map<string, map<string, int>>& idCache) {
+    vector<string> queries;
+    const json& transformations = config["transformations"];
+    const json& tableConfig = config["tables"][tableName];
+    for (const auto& recordTable : recordsTable) {
+        map<string, string> processedValues;
+        vector<string> columns;
+        vector<string> values;
+
         for (const auto& col : tableConfig["columns"]) {
             if (col.contains("lookup")) continue;
             string colName = col["name"];
@@ -112,6 +176,8 @@ vector<string> jsonToSqlInsert(const string& tableName, const vector<json>& reco
     }
     return queries;
 }
+
+*/
 
 /* map<string, vector<string>> jsonToSqlInsertt2(const json& data, const json& config, map<string, map<string, int>>& idCache) {
     map<string, vector<string>> insertQueries;

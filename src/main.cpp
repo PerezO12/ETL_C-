@@ -3,15 +3,12 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <variant>
 #include "../include/extraction.hpp"
 #include "../include/transformation.hpp"
 #include "../include/manager_db.hpp"
 
 using namespace std;
 
-
-using IdType = std::variant<int, string>;
 
 json leerConfiguracion(const string& configFilePath) {
     ifstream configFile(configFilePath);
@@ -39,16 +36,13 @@ void insertarMapearEjecutarQuerys(managerDb& db, const json& data, const json& c
                 vector<string> keyParts;
                 for (const auto& field : tableConfig["naturalKey"]) {
                     string rawValue = records[i][field].get<string>();
-
-                    /* if (tableConfig["transforms"].contains(field)) {
-                        string transformName = tableConfig["transforms"][field];
-                        rawValue = applyTransformation(rawValue, transformName, transformations);
-                    } */
-
                     keyParts.push_back(rawValue);
                 }
                 naturalKey = join(keyParts, "_"); 
-                //cout << "\nnaturalKey" << naturalKey << endl;
+                cout << "\nnaturalKey" << naturalKey << endl;
+                cout << endl << "main:" << endl;
+                cout << endl << "\nvalorFK naturalKey: " << naturalKey << endl;
+                cout << endl << "\nrefTable tableName: " << tableName << endl;
             } else {
                 throw runtime_error("Falta 'naturalKey' en la configuración de la tabla: " + tableName);
             }

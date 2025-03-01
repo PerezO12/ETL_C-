@@ -20,8 +20,7 @@
     "alumnos": {
       "sourcePath": "alumnos",
       "generatedId": true,
-      "naturalKey": ["nombre", "apellido", "facultad"],
-      "transform": "split_fullname",
+      "naturalKey": ["nombre", "apellido"],
       "columns": [
         { 
           "name": "nombre", 
@@ -48,7 +47,7 @@
     "asignaturas": {
       "sourcePath": "asignaturas",
       "generatedId": true,
-      "naturalKey": ["codigo"],
+      "naturalKey": ["nombre"],
       "transform": "trim_uppercase",
       "columns": [
         { 
@@ -59,8 +58,7 @@
         { 
           "name": "codigo", 
           "jsonPath": "codigo", 
-          "type": "varchar",
-          "transform": "trim_uppercase" 
+          "type": "varchar"
         },
         { 
           "name": "profesor_id", 
@@ -68,8 +66,8 @@
           "type": "int",
           "lookup": {
             "table": "profesores",
-            "naturalKey": ["nombre", "apellido", "catedra"],
-            "transform": "split_fullname"
+            "naturalKey": ["nombre", "apellido"],
+            "transform": "split_by_space"
           }
         }
       ]
@@ -77,8 +75,7 @@
     "profesores": {
       "sourcePath": "profesores",
       "generatedId": true,
-      "naturalKey": ["nombre", "apellido", "catedra"],
-      "transform": "trim_uppercase",
+      "naturalKey": ["nombre", "apellido"],
       "columns": [
         { 
           "name": "nombre", 
@@ -129,7 +126,7 @@
           "name": "alumno_id",
           "source": {
             "table": "alumnos",
-            "naturalKey": ["nombre", "apellido", "facultad"]
+            "naturalKey": ["nombre", "apellido"]
           }
         },
         {

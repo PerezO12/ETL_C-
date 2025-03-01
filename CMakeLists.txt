@@ -19,6 +19,7 @@ add_executable(etl_processor
     src/extraction.cpp 
     src/transformation.cpp
     src/manager_db.cpp
+    src/utils.cpp
     )
 
 # Vincular la librería nlohmann_json y PostgreSQL al ejecutable

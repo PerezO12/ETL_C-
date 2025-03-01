@@ -177,6 +177,8 @@ void managerDb::createRelationships(const json& config) {
 }
 
 
+
+
 //destructor
 managerDb::~managerDb() {
     if (conn) {
