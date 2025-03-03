@@ -118,7 +118,7 @@ void managerDb::createTable(const string tableName, const json& tableData) {
             for (const auto& column : tableData["columns"]) {
                 string colDef = column["name"].get<string>() + " " + column["type"].get<string>();
 
-                //info: add a la documentacion q el json en al tabla puede tener campos de unique
+                //info: add al readme q el json en al tabla puede tener campos de unique
                 if (column.contains("unique") && column["unique"].get<bool>()) {
                     colDef += " UNIQUE";
                 }
@@ -132,12 +132,11 @@ void managerDb::createTable(const string tableName, const json& tableData) {
                 elements.push_back(colDef);
             }
 
-            string query = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n    " 
-                              + Utility::join(elements, ",\n    ") + "\n);";
+            string query = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n    " + Utility::join(elements, ",\n    ") + "\n);";
             
             executeQuery(query);
             cout << "[OK] Tabla creada: " << tableName << endl;
-        } catch (const exception& e) {
+    } catch (const exception& e) {
          throw runtime_error("Error creando tablas: " + string(e.what()));
     }
 }
@@ -210,31 +209,30 @@ void managerDb::truncateTables(const vector<string>& tables) {
     }
 }
 
-//nota el naturalkey espera un {{clave, valor}, {clave,valor}}
-string managerDb::lookupId(const string& table, const json& naturalKey) {
+//todo: si no retorna un id se rompe, corregir luego !!!!!!!!!!!!!
+string managerDb::lookupId(const string& table, const map<string, string>& naturalKey) {
     try {
-        if (!naturalKey.is_object() || naturalKey.empty()) {
-            throw runtime_error("Clave natural inválida: debe ser un objeto JSON con pares clave-valor.");
+        if (naturalKey.empty()) {
+            throw runtime_error("Clave natural inválida: debe contener pares clave-valor.");
         }
-
+        cout << endl << "Desde lokupId table: " << table << endl;
         string query = "SELECT id FROM " + table + " WHERE ";
 
-        for (auto it = naturalKey.begin(); it != naturalKey.end(); ++it) {
-            const string& column = it.key();
-            const string value = it.value().get<string>();
+        for (auto it = naturalKey.begin(); it != naturalKey.end(); ) {
+            const string& column = it->first;
+            const string& value = it->second;
 
             query += column + " = '" + value + "'";
 
-            if (next(it) != naturalKey.end()) {
+            if (++it != naturalKey.end()) {
                 query += " AND ";
             }
         }
 
+        cout << endl << "Desde lokupId Query: " << query << endl;
         string idStr = executeQueryReturningId(query);
         return idStr;
-    } catch (const nlohmann::json::exception& e) {
-        throw runtime_error("Error en el JSON: " + string(e.what()));
-    } catch (const exception& e) {
+    }  catch (const exception& e) {
         throw runtime_error("Error en lookupId: " + string(e.what()));
     }
 }
@@ -243,10 +241,9 @@ string managerDb::lookupId(const string& table, const json& naturalKey) {
 void managerDb::batchInsert(const string& table, const vector<json>& records, const json& tableConfig) {
     try {
         executeQuery("BEGIN");
-
+        
         size_t batchSize = tableConfig.contains("batchSize") ? tableConfig["batchSize"].get<size_t>() : 1000;
-
-
+        
         string baseQuery = "INSERT INTO " + table + " (";
 
         // Agregar nombres de columnas
@@ -260,17 +257,39 @@ void managerDb::batchInsert(const string& table, const vector<json>& records, co
 
         for (const auto& record : records) {
             // Agregar valores al lote
+            
+            //cout<< "Desde manager_Db" <<endl << record.dump(4) << endl;
             query += "(";
             for (const auto& column : tableConfig["columns"]) {
-                string value = record.at(column["jsonPath"].get<string>()).get<string>();
+                //cout<< "Desde manager_Db dentro del for, inicio" <<endl << column << endl;
+                //string value = record.at(column["jsonPath"].get<string>()).get<string>();
+                //todo: falta hacer conversion para los que tienen lookup
+                string value = "";
+                if(column.contains("lookup"))
+                {   
+                    string naturalKeyValue = getValueFromJson(record, column["jsonPath"]); //la llave natural
+                    cout << endl << "Desde batchInsert naturalKeyValue: " << naturalKeyValue << endl;
+                    //separa los valores;
+                    //todo: puede necesitar ajustes
+                    vector<string> naturalKeyValueVector = Utility::splitStringByDelimiter(naturalKeyValue, " ");
+                    //esta funcion crea el mapa con sus clave valor, 
+                    map<string, string> naturalKeykeyValue = Utility::createNaturalKeyMap(column["lookup"]["naturalKey"], naturalKeyValueVector);
+                    //funcion que retorna el id
+                    value = lookupId(column["lookup"]["table"], naturalKeykeyValue);
+                    if(value == "") continue;
+                } else {
+                    value = getValueFromJson(record, column["jsonPath"]);
+                }
+                //cout<< "Desde manager_Db dentro del for, value:" <<endl << value << endl;
                 query += "'" + value + "', ";
             }
             query = query.substr(0, query.size() - 2) + "), ";
-
+            
             count++;
 
             if (count % batchSize == 0) {
                 query = query.substr(0, query.size() - 2) + ";"; 
+                cout<< "MDB: Query: " <<endl << query << endl;
                 executeQuery(query);
                 query = baseQuery;
             }
@@ -278,6 +297,7 @@ void managerDb::batchInsert(const string& table, const vector<json>& records, co
 
         if (count % batchSize != 0) {
             query = query.substr(0, query.size() - 2) + ";";
+            cout<< "MDB: Query: " <<endl << query << endl;
             executeQuery(query);
         }
 
@@ -287,6 +307,8 @@ void managerDb::batchInsert(const string& table, const vector<json>& records, co
         throw runtime_error("Error en batchInsert: " + string(e.what()));
     }
 }
+
+
 
 //destructor
 managerDb::~managerDb() {

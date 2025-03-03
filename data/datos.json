@@ -1,124 +1,141 @@
 {
-    "universidad": {
-      "alumnos": [
-        {
-          "nombre": "Carlos",
-          "apellido": "Gómez",
-          "sexo": "Masculino",
-          "edad": 21,
-          "facultad": "Ingeniería",
-          "asignaturas": [
-            {
-              "nombre": "Matemáticas Avanzadas",
-              "notas": [85, 90, 78]
-            },
-            {
-              "nombre": "Física",
-              "notas": [88, 92, 85]
-            }
-          ]
-        },
-        {
-          "nombre": "María",
-          "apellido": "Fernández",
-          "sexo": "Femenino",
-          "edad": 22,
-          "facultad": "Medicina",
-          "asignaturas": [
-            {
-              "nombre": "Anatomía",
-              "notas": [95, 89, 92]
-            },
-            {
-              "nombre": "Bioquímica",
-              "notas": [88, 91, 87]
-            }
-          ]
-        },
-        {
-          "nombre": "Juan",
-          "apellido": "Pérez",
-          "sexo": "Masculino",
-          "edad": 20,
-          "facultad": "Informática",
-          "asignaturas": [
-            {
-              "nombre": "Programación en C++",
-              "notas": [78, 84, 82]
-            },
-            {
-              "nombre": "Algoritmos",
-              "notas": [92, 88, 91]
-            }
-          ]
-        }
-      ],
-      "profesores": [
-        {
-          "nombre": "Javier",
-          "apellido": "López",
-          "sexo": "Masculino",
-          "edad": 45,
-          "catedra": "Matemáticas Avanzadas",
-          "aulas": ["Aula 101", "Aula 102"],
-          "cantidad_alumnos": 120
-        },
-        {
-          "nombre": "Laura",
-          "apellido": "Martínez",
-          "sexo": "Femenino",
-          "edad": 38,
-          "catedra": "Anatomía",
-          "aulas": ["Aula 201"],
-          "cantidad_alumnos": 80
-        },
-        {
-          "nombre": "Pedro",
-          "apellido": "González",
-          "sexo": "Masculino",
-          "edad": 50,
-          "catedra": "Programación en C++",
-          "aulas": ["Aula 303", "Aula 304"],
-          "cantidad_alumnos": 100
-        }
-      ],
-      "asignaturas": [
-        {
-          "nombre": "Matemáticas Avanzadas",
-          "codigo": "MA101",
-          "profesor": "Javier López",
-          "facultad": "Ingeniería",
-          "horarios": ["Lunes 10:00-12:00", "Miércoles 10:00-12:00"]
-        },
-        {
-          "nombre": "Física",
-          "codigo": "F101",
-          "profesor": "Carlos Hernández",
-          "facultad": "Ingeniería",
-          "horarios": ["Martes 9:00-11:00", "Jueves 9:00-11:00"]
-        },
-        {
-          "nombre": "Anatomía",
-          "codigo": "AN102",
-          "profesor": "Laura Martínez",
-          "facultad": "Medicina",
-          "horarios": ["Lunes 8:00-10:00", "Miércoles 8:00-10:00"]
-        },
-        {
-          "nombre": "Bioquímica",
-          "codigo": "BQ201",
-          "profesor": "Mariana Ruiz",
-          "facultad": "Medicina",
-          "horarios": ["Martes 11:00-13:00", "Jueves 11:00-13:00"]
-        },
-        {
-          "nombre": "Programación en C++",
-          "codigo": "C++201",
-          "profesor": "Pedro González",
-          "facultad": "Informática",
-          "horarios": ["Lunes 15:00-17:00", "Miércoles 15:00-17:00"]
-        }
-      ]
-    }
+  "universidad": {
+    "alumnos": [
+      {
+        "nombre": "Carlos",
+        "apellido": "Gómez",
+        "sexo": "Masculino",
+        "edad": 21,
+        "facultad": "Ingeniería",
+        "asignaturas": [
+          {
+            "nombre": "Matemáticas Avanzadas",
+            "notas": [85, 90, 78]
+          },
+          {
+            "nombre": "Física",
+            "notas": [88, 92, 85]
+          }
+        ]
+      },
+      {
+        "nombre": "María",
+        "apellido": "Fernández",
+        "sexo": "Femenino",
+        "edad": 22,
+        "facultad": "Medicina",
+        "asignaturas": [
+          {
+            "nombre": "Anatomía",
+            "notas": [95, 89, 92]
+          },
+          {
+            "nombre": "Bioquímica",
+            "notas": [88, 91, 87]
+          }
+        ]
+      },
+      {
+        "nombre": "Juan",
+        "apellido": "Pérez",
+        "sexo": "Masculino",
+        "edad": 20,
+        "facultad": "Informática",
+        "asignaturas": [
+          {
+            "nombre": "Programación en C++",
+            "notas": [78, 84, 82]
+          },
+          {
+            "nombre": "Algoritmos",
+            "notas": [92, 88, 91]
+          }
+        ]
+      }
+    ],
+    "profesores": [
+      {
+        "nombre": "Javier",
+        "apellido": "López",
+        "sexo": "Masculino",
+        "edad": 45,
+        "catedra": "Matemáticas Avanzadas",
+        "aulas": ["Aula 101", "Aula 102"],
+        "cantidad_alumnos": 120
+      },
+      {
+        "nombre": "Laura",
+        "apellido": "Martínez",
+        "sexo": "Femenino",
+        "edad": 38,
+        "catedra": "Anatomía",
+        "aulas": ["Aula 201"],
+        "cantidad_alumnos": 80
+      },
+      {
+        "nombre": "Pedro",
+        "apellido": "González",
+        "sexo": "Masculino",
+        "edad": 50,
+        "catedra": "Programación en C++",
+        "aulas": ["Aula 303", "Aula 304"],
+        "cantidad_alumnos": 100
+      },
+      {
+        "nombre": "Carlos",
+        "apellido": "Hernández",
+        "sexo": "Masculino",
+        "edad": 42,
+        "catedra": "Física",
+        "aulas": ["Aula 105"],
+        "cantidad_alumnos": 90
+      },
+      {
+        "nombre": "Mariana",
+        "apellido": "Ruiz",
+        "sexo": "Femenino",
+        "edad": 37,
+        "catedra": "Bioquímica",
+        "aulas": ["Aula 202"],
+        "cantidad_alumnos": 75
+      }
+    ],
+    "asignaturas": [
+      {
+        "nombre": "Matemáticas Avanzadas",
+        "codigo": "MA101",
+        "profesor": "Javier López",
+        "facultad": "Ingeniería",
+        "horarios": ["Lunes 10:00-12:00", "Miércoles 10:00-12:00"]
+      },
+      {
+        "nombre": "Física",
+        "codigo": "F101",
+        "profesor": "Carlos Hernández", 
+        "facultad": "Ingeniería",
+        "horarios": ["Martes 9:00-11:00", "Jueves 9:00-11:00"]
+      },
+      {
+        "nombre": "Anatomía",
+        "codigo": "AN102",
+        "profesor": "Laura Martínez",
+        "facultad": "Medicina",
+        "horarios": ["Lunes 8:00-10:00", "Miércoles 8:00-10:00"]
+      },
+      {
+        "nombre": "Bioquímica",
+        "codigo": "BQ201",
+        "profesor": "Mariana Ruiz",  
+        "facultad": "Medicina",
+        "horarios": ["Martes 11:00-13:00", "Jueves 11:00-13:00"]
+      },
+      {
+        "nombre": "Programación en C++",
+        "codigo": "CPP201", 
+        "profesor": "Pedro González",
+        "facultad": "Informática",
+        "horarios": ["Lunes 15:00-17:00", "Miércoles 15:00-17:00"]
+      }
+    ]
   }
-  
+}

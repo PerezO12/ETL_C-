@@ -5,6 +5,7 @@
 #include <libpq-fe.h>
 #include <nlohmann/json.hpp>
 #include "utility.hpp"
+#include "extraction.hpp"
 
 using namespace std;
 using json = nlohmann::json;
@@ -25,7 +26,7 @@ class managerDb
         void createRelationships(const json& relationshipsConfig);
         void truncateTables(const vector<string>& tables);
         void batchInsert(const string& table, const vector<json>& records, const json& tableConfig);
-        string lookupId(const string& table, const json& naturalKey);
+        string lookupId(const string& table, const map<string, string>& naturalKey);
         ~managerDb();
         
     private:

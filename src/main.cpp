@@ -38,13 +38,6 @@ int main() {
 
         //TRANSFORMACIÓN
 
-        /* managerDb db(
-            config["database"]["host"],
-            config["database"]["dbname"],
-            config["database"]["user"],
-            config["database"]["password"],
-            config["database"]["port"]
-        ); */
         managerDb db (config["database"]);
         //creamos tablas y relaciones si no existen
         db.createTables(config["tables"], config["globalOptions"]["loadOrder"]);
@@ -56,13 +49,18 @@ int main() {
         } */
 
         // 4. procesar tablas en el orden definido en el json
-        /* for (const auto& tableName : config["globalOptions"]["loadOrder"]) {
+        for (const auto& tableName : config["globalOptions"]["loadOrder"]) {
             // aplicat transformacioens definidas
             //transformation::applyTransformations(data[tableName], config["transformations"]);
-
-            // 4b. Insertar datos en batch
-            db.batchInsert(tableName, data, config["tables"][tableName]);
-        } */
+            cout << endl << "tablename: "<<tableName <<endl ; //borrar luego
+            // 4b. Insertar datos en batch  
+            const vector<json> records = getJsonRecords(data, tableName, config["dataSource"]["rootPath"]);
+            //borrar luego
+            for(auto& record : records) {
+                cout << endl << "records: " << record.dump(4) << endl;
+            }
+            db.batchInsert(tableName, records, config["tables"][tableName]);
+        }
 
     } catch (const exception& ex) {
         cerr << "Error: " << ex.what() << endl;
