@@ -52,15 +52,22 @@ int main() {
         for (const auto& tableName : config["globalOptions"]["loadOrder"]) {
             // aplicat transformacioens definidas
             //transformation::applyTransformations(data[tableName], config["transformations"]);
-            cout << endl << "tablename: "<<tableName <<endl ; //borrar luego
+            //cout << endl << "tablename: "<<tableName <<endl ; //borrar luego
             // 4b. Insertar datos en batch  
             const vector<json> records = getJsonRecords(data, tableName, config["dataSource"]["rootPath"]);
             //borrar luego
-            for(auto& record : records) {
+            /* for(auto& record : records) {
                 cout << endl << "records: " << record.dump(4) << endl;
-            }
+            } */
             db.batchInsert(tableName, records, config["tables"][tableName]);
         }
+          // Procesar relaciones Many-to-Many
+        db.processRelationships(
+            config, 
+            config["relationships"], 
+            data, 
+            config["dataSource"]["rootPath"].get<string>()
+        );
 
     } catch (const exception& ex) {
         cerr << "Error: " << ex.what() << endl;
@@ -70,37 +77,3 @@ int main() {
     waitForUserInput(); //para q no se cierre
     return 0;
 }
-
-
-/* void insertarMapearEjecutarQuerys(managerDb& db, const json& data, const json& config) {
-    const string rootPath = config["dataSource"].value("rootPath", "");
-    const json& transformations = config["transformations"];
-    cout<<"entre: " << endl;
-    for (const string& tableName : config["globalOptions"]["loadOrder"]) {
-        const json& tableConfig = config["tables"][tableName];
-        vector<json> records = getJsonRecords(data, tableConfig["sourcePath"], rootPath);
-        vector<string> queries = jsonToSqlInsert(tableName, records, data, config, idCache);
-
-        for (size_t i = 0; i < queries.size(); ++i) {
-            cout << queries[i] << "\n";
-            int id = stoi(db.executeQueryReturningId(queries[i]));
-            string naturalKey;
-            if (tableConfig.contains("naturalKey")) {
-                vector<string> keyParts;
-                for (const auto& field : tableConfig["naturalKey"]) {
-                    string rawValue = records[i][field].get<string>();
-                    keyParts.push_back(rawValue);
-                }
-                naturalKey = join(keyParts, "_"); 
-                cout << "\nnaturalKey" << naturalKey << endl;
-                cout << endl << "main:" << endl;
-                cout << endl << "\nvalorFK naturalKey: " << naturalKey << endl;
-                cout << endl << "\nrefTable tableName: " << tableName << endl;
-            } else {
-                throw runtime_error("Falta 'naturalKey' en la configuración de la tabla: " + tableName);
-            }
-
-            idCache[tableName][naturalKey] = id;
-        }
-    }
-} */

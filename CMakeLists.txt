@@ -11,7 +11,7 @@ set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRIN
 
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(PostgreSQL REQUIRED)
-#find_package(libpqxx CONFIG REQUIRED)
+
 
 # Crear el ejecutable con los archivos fuente
 add_executable(etl_processor 

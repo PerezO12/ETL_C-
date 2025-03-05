@@ -53,3 +53,6 @@ Desktop.ini
 # Archivos generados por CMake al configurar el entorno de vcpkg
 vcpkg*/installed/*
 vcpkg*/downloads/*
+
+#otros
+tareasPorHacer.md

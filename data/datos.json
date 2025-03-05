@@ -60,6 +60,7 @@
         "sexo": "Masculino",
         "edad": 45,
         "catedra": "Matemáticas Avanzadas",
+        "facultad": "Ingeniería",
         "aulas": ["Aula 101", "Aula 102"],
         "cantidad_alumnos": 120
       },
@@ -69,6 +70,7 @@
         "sexo": "Femenino",
         "edad": 38,
         "catedra": "Anatomía",
+        "facultad": "Medicina", 
         "aulas": ["Aula 201"],
         "cantidad_alumnos": 80
       },
@@ -78,6 +80,7 @@
         "sexo": "Masculino",
         "edad": 50,
         "catedra": "Programación en C++",
+        "facultad": "Informática", 
         "aulas": ["Aula 303", "Aula 304"],
         "cantidad_alumnos": 100
       },
@@ -87,6 +90,7 @@
         "sexo": "Masculino",
         "edad": 42,
         "catedra": "Física",
+        "facultad": "Ingeniería", 
         "aulas": ["Aula 105"],
         "cantidad_alumnos": 90
       },
@@ -96,8 +100,19 @@
         "sexo": "Femenino",
         "edad": 37,
         "catedra": "Bioquímica",
+        "facultad": "Medicina", 
         "aulas": ["Aula 202"],
         "cantidad_alumnos": 75
+      },
+      {
+        "nombre": "Ana",
+        "apellido": "Torres", 
+        "sexo": "Femenino",
+        "edad": 40,
+        "catedra": "Algoritmos",
+        "facultad": "Informática",
+        "aulas": ["Aula 305"],
+        "cantidad_alumnos": 85
       }
     ],
     "asignaturas": [
@@ -135,6 +150,13 @@
         "profesor": "Pedro González",
         "facultad": "Informática",
         "horarios": ["Lunes 15:00-17:00", "Miércoles 15:00-17:00"]
+      },
+      {
+        "nombre": "Algoritmos",
+        "codigo": "ALG301",
+        "profesor": "Ana Torres",
+        "facultad": "Informática",
+        "horarios": ["Viernes 9:00-11:00"]
       }
     ]
   }

@@ -27,6 +27,7 @@ class managerDb
         void truncateTables(const vector<string>& tables);
         void batchInsert(const string& table, const vector<json>& records, const json& tableConfig);
         string lookupId(const string& table, const map<string, string>& naturalKey);
+        void processRelationships(const json& config, const json& relationshipsConfig, const json& data, const string& rootPath);
         ~managerDb();
         
     private:

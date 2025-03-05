@@ -1,8 +1,7 @@
 #include "../include/manager_db.hpp"
-
-#include <iostream>
 #include <unordered_set>
 #include <stdexcept>
+
 
 managerDb::managerDb(const string& host, const string& dbname, const string& user, const string& password, const string& port) {
     string conninfo = "host=" + host + " dbname=" + dbname + " user=" + user + " password=" + password + " port=" + port;
@@ -55,7 +54,8 @@ void managerDb::executeQuery(const string& query) {
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
         cerr << "Error en la consulta: " << PQerrorMessage(conn) << endl;
     } else {
-        cout << "Consulta ejecutada con éxito" << endl;
+        cout << "Consulta ejecutada con éxito: " << endl;
+        cout << "Quer: " << query << endl;
     }
 
     PQclear(res);
@@ -71,7 +71,7 @@ string managerDb::executeQueryReturningId(const string& query) {
 
     if (PQntuples(res) == 0 || PQnfields(res) == 0) {
         PQclear(res);
-        throw runtime_error("La consulta no retornó ningún ID.");
+        throw runtime_error("La consulta " + query + " no retornó ningún ID.");
     }
 
     char* rawId = PQgetvalue(res, 0, 0);
@@ -101,11 +101,6 @@ PGresult* managerDb::excecuteSelectQuery(const string& query) {
 
 
 //tablas
-#include <vector>
-#include <string>
-
-using json = nlohmann::json;
-
 void managerDb::createTable(const string tableName, const json& tableData) {
     try {
         vector<string> elements;
@@ -215,7 +210,7 @@ string managerDb::lookupId(const string& table, const map<string, string>& natur
         if (naturalKey.empty()) {
             throw runtime_error("Clave natural inválida: debe contener pares clave-valor.");
         }
-        cout << endl << "Desde lokupId table: " << table << endl;
+        //cout << endl << "Desde lokupId table: " << table << endl;
         string query = "SELECT id FROM " + table + " WHERE ";
 
         for (auto it = naturalKey.begin(); it != naturalKey.end(); ) {
@@ -231,6 +226,7 @@ string managerDb::lookupId(const string& table, const map<string, string>& natur
 
         cout << endl << "Desde lokupId Query: " << query << endl;
         string idStr = executeQueryReturningId(query);
+        cout << endl << "Desde lokupId ID retornado: " << idStr << endl;
         return idStr;
     }  catch (const exception& e) {
         throw runtime_error("Error en lookupId: " + string(e.what()));
@@ -241,12 +237,12 @@ string managerDb::lookupId(const string& table, const map<string, string>& natur
 void managerDb::batchInsert(const string& table, const vector<json>& records, const json& tableConfig) {
     try {
         executeQuery("BEGIN");
-        
+        cout << endl << "Insertando datos en tabla: " << table << endl;
+
         size_t batchSize = tableConfig.contains("batchSize") ? tableConfig["batchSize"].get<size_t>() : 1000;
         
         string baseQuery = "INSERT INTO " + table + " (";
 
-        // Agregar nombres de columnas
         for (const auto& column : tableConfig["columns"]) {
             baseQuery += column["name"].get<string>() + ", ";
         }
@@ -256,40 +252,39 @@ void managerDb::batchInsert(const string& table, const vector<json>& records, co
         size_t count = 0;
 
         for (const auto& record : records) {
-            // Agregar valores al lote
-            
-            //cout<< "Desde manager_Db" <<endl << record.dump(4) << endl;
+            cout << endl << "record: " << record.dump(4) << endl;
             query += "(";
             for (const auto& column : tableConfig["columns"]) {
-                //cout<< "Desde manager_Db dentro del for, inicio" <<endl << column << endl;
-                //string value = record.at(column["jsonPath"].get<string>()).get<string>();
-                //todo: falta hacer conversion para los que tienen lookup
+                cout << endl << "Insertando datos en columna: " << column << endl;
                 string value = "";
                 if(column.contains("lookup"))
                 {   
-                    string naturalKeyValue = getValueFromJson(record, column["jsonPath"]); //la llave natural
-                    cout << endl << "Desde batchInsert naturalKeyValue: " << naturalKeyValue << endl;
-                    //separa los valores;
-                    //todo: puede necesitar ajustes
+                    string naturalKeyValue = getValueFromJson(record, column["jsonPath"]);
                     vector<string> naturalKeyValueVector = Utility::splitStringByDelimiter(naturalKeyValue, " ");
-                    //esta funcion crea el mapa con sus clave valor, 
                     map<string, string> naturalKeykeyValue = Utility::createNaturalKeyMap(column["lookup"]["naturalKey"], naturalKeyValueVector);
-                    //funcion que retorna el id
                     value = lookupId(column["lookup"]["table"], naturalKeykeyValue);
-                    if(value == "") continue;
                 } else {
                     value = getValueFromJson(record, column["jsonPath"]);
+                    string type = column["type"].get<string>();
+                    //todo: cambiar luego
+                    if (type == "jsonb") {
+                        value = "'" + value + "'::jsonb"; 
+                    } else if (type == "int") {
+                        value = value; 
+                    } else {
+                        value = "'" + value + "'";
+                    }
                 }
-                //cout<< "Desde manager_Db dentro del for, value:" <<endl << value << endl;
-                query += "'" + value + "', ";
+                //query += "'" + value + "', ";
+                query += value + ", "; 
+
             }
             query = query.substr(0, query.size() - 2) + "), ";
-            
+            cout << endl << "query Antes de ejecutar" << query << endl;
             count++;
 
             if (count % batchSize == 0) {
                 query = query.substr(0, query.size() - 2) + ";"; 
-                cout<< "MDB: Query: " <<endl << query << endl;
                 executeQuery(query);
                 query = baseQuery;
             }
@@ -297,7 +292,7 @@ void managerDb::batchInsert(const string& table, const vector<json>& records, co
 
         if (count % batchSize != 0) {
             query = query.substr(0, query.size() - 2) + ";";
-            cout<< "MDB: Query: " <<endl << query << endl;
+            //cout<< "MDB: Query: " <<endl << query << endl;
             executeQuery(query);
         }
 
@@ -308,7 +303,82 @@ void managerDb::batchInsert(const string& table, const vector<json>& records, co
     }
 }
 
+void managerDb::processRelationships(const json& config, const json& relationshipsConfig, const json& data, const string& rootPath) {
+    try {  
+        cout << endl << "estoy aqui" << endl;
+        for (const auto& rel : relationshipsConfig) {
+            if (rel["type"] != "MANY_TO_MANY") continue;
 
+            const string junctionTable = rel["junctionTable"].get<string>();
+            const string fromTable = rel["fromTable"].get<string>();
+            const string toTable = rel["toTable"].get<string>();
+            const json& columnsConfig = rel["columns"];
+            const string toDataPath = rel["dataPath"].get<string>();
+
+            const json& fromRecords = data[rootPath][fromTable];
+            vector<json> junctionRecords;
+            //cout << endl << "junctionTable: "<< junctionTable << endl;
+            //cout << endl << "fromTable: "<< fromTable << endl;
+            //cout << endl << "toTable: "<< toTable << endl;
+            //cout << endl << "toDataPath: "<< toDataPath << endl;
+            //cout << endl << "columnsConfig: "<< columnsConfig.dump(4) << endl;
+            for (const auto& fromRecord : fromRecords) {
+                map<string, string> fromNaturalKey;
+
+                //cout << endl << "fromRecord: "<< fromRecord << endl;
+
+                for (const auto& key : config["tables"][fromTable]["naturalKey"]) {
+                    fromNaturalKey[key.get<string>()] = getValueFromJson(fromRecord, key.get<string>());
+                }
+                string fromId = lookupId(fromTable, fromNaturalKey);
+
+                cout << endl << "fromId: "<< fromId << endl;
+
+                for (const auto& toData : fromRecord[toDataPath]) { 
+                    map<string, string> toNaturalKey;
+                    for (const auto& key : config["tables"][toTable]["naturalKey"]) {
+                        toNaturalKey[key.get<string>()] = getValueFromJson(toData, key.get<string>());
+                    }
+                    string toId = lookupId(toTable, toNaturalKey);
+                    cout << endl << "toId: "<< toId << endl;
+                    // Construir registro para la tabla de unión
+                    json junctionRecord;
+                    for (const auto& colConfig : columnsConfig) {
+                        const string colName = colConfig["name"].get<string>();
+                        
+                        if (colName.find("_id") != string::npos) {
+                            const string sourceTable = colConfig["source"]["table"].get<string>();
+                            if (sourceTable == fromTable) {
+                                junctionRecord[colName] = fromId;
+                            } else {
+                                junctionRecord[colName] = toId;
+                            }
+                            //junctionRecord[colName] = (colName == fromTable + "_id") ? fromId : toId; 
+                            cout << endl << "desde el bucle, colName:" << colName << endl; 
+                            cout << endl << "desde el bucle, fromId:" << fromId << endl; 
+                            cout << endl << "desde el bucle, fromTable:" << fromTable << endl; 
+                            cout << endl << "desde el bucle, toId:" << toId << endl; 
+                        } else {
+                            string jsonPath = colConfig["jsonPath"].get<string>();
+                            junctionRecord[colName] = getValueFromJson(toData, jsonPath); 
+                            //junctionRecord[colName] = toData[colConfig["jsonPath"]];
+                        }
+                    }
+                    junctionRecords.push_back(junctionRecord);
+                }
+            }
+            cout <<endl <<"********************************************************" << endl<< endl;
+            for(auto& juntionRecord: junctionRecords) {
+                cout <<endl <<"juntionRecord" << juntionRecord.dump(4) << endl;
+            }
+            cout <<endl <<"rel" << rel.dump(4) << endl;
+            batchInsert(junctionTable, junctionRecords, rel);
+            
+        }
+    } catch (const exception& e) {
+        throw runtime_error("Error procesando relaciones: " + string(e.what()));
+    }
+}
 
 //destructor
 managerDb::~managerDb() {

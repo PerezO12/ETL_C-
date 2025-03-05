@@ -119,9 +119,11 @@
       "fromTable": "alumnos",
       "toTable": "asignaturas",
       "junctionTable": "alumno_asignatura",
+      "dataPath": "asignaturas",
       "columns": [
         {
           "name": "alumno_id",
+          "jsonPath": "alumno_id",
           "type": "int",
           "source": {
             "table": "alumnos",
@@ -131,6 +133,7 @@
         {
           "name": "asignatura_id",
           "type": "int",
+          "jsonPath": "asignatura_id",
           "source": {
             "table": "asignaturas",
             "naturalKey": ["nombre"]
@@ -138,7 +141,7 @@
         },
         { 
           "name": "notas", 
-          "jsonPath": "alumnos.asignaturas.notas", 
+          "jsonPath": "notas", 
           "type": "jsonb" 
         }
       ]
