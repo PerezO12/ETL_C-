@@ -157,6 +157,13 @@
         "profesor": "Ana Torres",
         "facultad": "Informática",
         "horarios": ["Viernes 9:00-11:00"]
+      },
+      {
+        "nombre": "NO TIENE PROFESOR",
+        "codigo": "ALG301",
+        "profesor": "No existe",
+        "facultad": "Informática",
+        "horarios": ["Viernes 9:00-11:00"]
       }
     ]
   }

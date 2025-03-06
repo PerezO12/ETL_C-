@@ -252,17 +252,21 @@ void managerDb::batchInsert(const string& table, const vector<json>& records, co
         size_t count = 0;
 
         for (const auto& record : records) {
-            cout << endl << "record: " << record.dump(4) << endl;
-            query += "(";
+            bool validRecord = true; // Bandera para verificar si el registro es válido
+            string currentRecord = "(";
+        
             for (const auto& column : tableConfig["columns"]) {
-                cout << endl << "Insertando datos en columna: " << column << endl;
                 string value = "";
-                if(column.contains("lookup"))
-                {   
-                    string naturalKeyValue = getValueFromJson(record, column["jsonPath"]);
-                    vector<string> naturalKeyValueVector = Utility::splitStringByDelimiter(naturalKeyValue, " ");
-                    map<string, string> naturalKeykeyValue = Utility::createNaturalKeyMap(column["lookup"]["naturalKey"], naturalKeyValueVector);
-                    value = lookupId(column["lookup"]["table"], naturalKeykeyValue);
+                if (column.contains("lookup")) {
+                    try {
+                        string naturalKeyValue = getValueFromJson(record, column["jsonPath"]);
+                        vector<string> naturalKeyValueVector = Utility::splitStringByDelimiter(naturalKeyValue, " ");
+                        map<string, string> naturalKeykeyValue = Utility::createNaturalKeyMap(column["lookup"]["naturalKey"], naturalKeyValueVector);
+                        value = lookupId(column["lookup"]["table"], naturalKeykeyValue);
+                    } catch (const std::exception& e) {
+                        validRecord = false; 
+                        break;
+                    }
                 } else {
                     value = getValueFromJson(record, column["jsonPath"]);
                     string type = column["type"].get<string>();
@@ -275,11 +279,15 @@ void managerDb::batchInsert(const string& table, const vector<json>& records, co
                         value = "'" + value + "'";
                     }
                 }
-                //query += "'" + value + "', ";
-                query += value + ", "; 
-
+                currentRecord += value + ", ";
             }
-            query = query.substr(0, query.size() - 2) + "), ";
+            //cambiar esto para insertar en logs
+            if (!validRecord) {
+                cout << "Registro omitido (fallo en clave foránea) ************************" << endl;
+                continue;
+            }
+            currentRecord = currentRecord.substr(0, currentRecord.size() - 2) + "), ";
+            query += currentRecord;
             cout << endl << "query Antes de ejecutar" << query << endl;
             count++;
 
@@ -317,11 +325,6 @@ void managerDb::processRelationships(const json& config, const json& relationshi
 
             const json& fromRecords = data[rootPath][fromTable];
             vector<json> junctionRecords;
-            //cout << endl << "junctionTable: "<< junctionTable << endl;
-            //cout << endl << "fromTable: "<< fromTable << endl;
-            //cout << endl << "toTable: "<< toTable << endl;
-            //cout << endl << "toDataPath: "<< toDataPath << endl;
-            //cout << endl << "columnsConfig: "<< columnsConfig.dump(4) << endl;
             for (const auto& fromRecord : fromRecords) {
                 map<string, string> fromNaturalKey;
 
@@ -354,10 +357,6 @@ void managerDb::processRelationships(const json& config, const json& relationshi
                                 junctionRecord[colName] = toId;
                             }
                             //junctionRecord[colName] = (colName == fromTable + "_id") ? fromId : toId; 
-                            cout << endl << "desde el bucle, colName:" << colName << endl; 
-                            cout << endl << "desde el bucle, fromId:" << fromId << endl; 
-                            cout << endl << "desde el bucle, fromTable:" << fromTable << endl; 
-                            cout << endl << "desde el bucle, toId:" << toId << endl; 
                         } else {
                             string jsonPath = colConfig["jsonPath"].get<string>();
                             junctionRecord[colName] = getValueFromJson(toData, jsonPath); 
@@ -367,11 +366,8 @@ void managerDb::processRelationships(const json& config, const json& relationshi
                     junctionRecords.push_back(junctionRecord);
                 }
             }
-            cout <<endl <<"********************************************************" << endl<< endl;
-            for(auto& juntionRecord: junctionRecords) {
-                cout <<endl <<"juntionRecord" << juntionRecord.dump(4) << endl;
-            }
-            cout <<endl <<"rel" << rel.dump(4) << endl;
+            
+
             batchInsert(junctionTable, junctionRecords, rel);
             
         }
