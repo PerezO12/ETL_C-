@@ -1,26 +1,24 @@
-#include <fstream>
 #include <iostream>
 #include <string>
 #include <map>
 #include <vector>
-#include "../include/extraction.hpp"
-#include "../include/transformation.hpp"
-#include "../include/manager_db.hpp"
+#include <iostream>
+#include <limits>
+//config
+#include "../include/services/ConfigLoader.hpp"
+//etl
+#include "../include/etl/extraction.hpp"
+#include "../include/etl/transformation.hpp"
+//database
+#include "../include/database/Connection.hpp"
+#include "../include/database/QueryExecutor.hpp"
+#include "../include/database/SchemaManager.hpp"
+#include "../include/database/InsertValues.hpp"
+
+
 
 using namespace std;
 
-
-json leerConfiguracion(const string& configFilePath) {
-    ifstream configFile(configFilePath);
-    if (!configFile) {
-        throw runtime_error("No se pudo abrir el archivo de configuración");
-    }
-    json config;
-    configFile >> config;
-    return config;
-}
-#include <iostream>
-#include <limits>
 
 void waitForUserInput() {
     cout << "\nPresione Enter para finalizar...";
@@ -30,50 +28,56 @@ void waitForUserInput() {
 
 int main() {
     try {
-        //cargar conf y datos.
+        //cargar conf,datos y variables a utilizar .
         json config = leerConfiguracion("../config/config.json");
         json data = extractData(config["dataSource"]["filePath"]);
         if (data.is_null())  throw runtime_error("El archivo de datos JSON no se pudo cargar.");
-        cout << "*************************************************" << endl;
 
-        //TRANSFORMACIÓN
+        //Coneccion a la base de datos
+        const json& dbConfig = config["database"];
 
-        managerDb db (config["database"]);
-        //creamos tablas y relaciones si no existen
-        db.createTables(config["tables"], config["globalOptions"]["loadOrder"]);
-        db.createRelationships(config["relationships"]);
+        //creacion de los componentes a utilzar
+        Connection conn(dbConfig);
+        QueryExecutor queryExecutor(conn.getRawConnection());
+        SchemaManager schemaManager(queryExecutor);
+        InsertValues insertValues(queryExecutor);
 
-        //3. truncar tablas
-        /* if (config["globalOptions"]["truncateBeforeLoad"]) {
-            db.truncateTables(config["globalOptions"]["loadOrder"]);
-        } */
+        //gestiónn del esquema d las tablas y relaciones
 
-        // 4. procesar tablas en el orden definido en el json
-        for (const auto& tableName : config["globalOptions"]["loadOrder"]) {
-            // aplicat transformacioens definidas
-            //transformation::applyTransformations(data[tableName], config["transformations"]);
-            //cout << endl << "tablename: "<<tableName <<endl ; //borrar luego
-            // 4b. Insertar datos en batch  
-            const vector<json> records = getJsonRecords(data, tableName, config["dataSource"]["rootPath"]);
-            //borrar luego
-            /* for(auto& record : records) {
-                cout << endl << "records: " << record.dump(4) << endl;
-            } */
-            db.batchInsert(tableName, records, config["tables"][tableName]);
+        schemaManager.createTables(config["tables"], config["globalOptions"]["loadOrder"]);
+        schemaManager.createRelationships(config["relationships"]);
+        
+        // Truncar tablas si est aactivo
+        //todo:falta probar
+        if (config["globalOptions"]["truncateBeforeLoad"]) {
+            schemaManager.truncateTables(config["globalOptions"]["loadOrder"]);
         }
-          // Procesar relaciones Many-to-Many
-        db.processRelationships(
-            config, 
-            config["relationships"], 
-            data, 
+
+        // procesar datos
+        for (const auto& tableName : config["globalOptions"]["loadOrder"]) {
+
+            const vector<json> records = getJsonRecords(data, tableName, config["dataSource"]["rootPath"]);
+            // Aplicar transformaciones
+            //todo: falta
+            /* for (auto& record : records) {
+                applyTransformations(record, config["transformations"]);
+            } */
+            insertValues.batchInsert(tableName, records, config["tables"][tableName]);
+        }
+        // Procesar relaciones Many-to-Many
+        insertValues.processRelationships(
+            config,
+            config["relationships"],
+            data,
             config["dataSource"]["rootPath"].get<string>()
         );
+        cout << "\nProceso ETL completado con éxito\n";
 
     } catch (const exception& ex) {
         cerr << "Error: " << ex.what() << endl;
-        waitForUserInput(); //para q no se cierre
+        waitForUserInput();
         return 1;
     } 
-    waitForUserInput(); //para q no se cierre
+    waitForUserInput();
     return 0;
 }

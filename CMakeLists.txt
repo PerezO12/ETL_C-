@@ -16,10 +16,14 @@ find_package(PostgreSQL REQUIRED)
 # Crear el ejecutable con los archivos fuente
 add_executable(etl_processor 
     src/main.cpp 
-    src/extraction.cpp 
-    src/transformation.cpp
-    src/manager_db.cpp
-    src/utility.cpp
+    src/common/Utility.cpp 
+    src/database/Connection.cpp 
+    src/database/InsertValues.cpp 
+    src/database/QueryExecutor.cpp 
+    src/database/SchemaManager.cpp 
+    src/etl/Extraction.cpp 
+    src/etl/Transformation.cpp 
+    src/services/ConfigLoader.cpp 
     )
 
 # Vincular la librería nlohmann_json y PostgreSQL al ejecutable
