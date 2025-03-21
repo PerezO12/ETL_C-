@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <algorithm>
+//#include <simdjson.h>
 
 json extractData(const string& filePath) {
     ifstream file(filePath);
@@ -13,6 +14,20 @@ json extractData(const string& filePath) {
     json j;
     file >> j;
     return j;
+}
+
+simdjson::dom::element extractDataSimDjson(const string& filePath) {
+    simdjson::dom::parser parser;
+    simdjson::dom::element doc;
+
+    auto error = parser.load(filePath).get(doc); 
+
+    if (error) {
+        cerr << "Error: " << error << "\n";
+        return {}; 
+    }
+
+    return doc;
 }
 
 vector<json> getJsonRecords(const json& data, const string& sourcePath, const string& rootPath) {  

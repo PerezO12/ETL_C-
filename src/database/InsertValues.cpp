@@ -9,7 +9,10 @@ InsertValues::InsertValues(QueryExecutor& executor): executor(executor)
 string InsertValues::lookupId(const string& table, const map<string, string>& naturalKey) {
     try {
         if (naturalKey.empty()) {
-            throw runtime_error("Clave natural inválida: debe contener pares clave-valor.");
+            //throw runtime_error("Clave natural inválida: debe contener pares clave-valor.");
+            cerr << "Clave natural inválida: debe contener pares clave-valor." << endl;
+            //add un log
+            return "";
         }
         //cout << endl << "Desde lokupId table: " << table << endl;
         string query = "SELECT id FROM " + table + " WHERE ";
@@ -25,12 +28,18 @@ string InsertValues::lookupId(const string& table, const map<string, string>& na
             }
         }
 
-        cout << endl << "Desde lokupId Query: " << query << endl;
+       // cout << endl << "Desde lokupId Query: " << query << endl;
         string idStr = executor.executeQueryReturningId(query);
-        cout << endl << "Desde lokupId ID retornado: " << idStr << endl;
+        //cout << endl << "Desde lokupId ID retornado: " << idStr << endl;
         return idStr;
     }  catch (const exception& e) {
-        throw runtime_error("Error en lookupId: " + string(e.what()));
+        //throw runtime_error("Error en lookupId: " + string(e.what()));
+        cerr << "Advertencia: No se encontró ID para tabla " << table << " con claves: " << endl;
+        for (const auto& [column, value] : naturalKey) {
+            cout << "columna: " << column << ", value: " << value << endl;
+        }
+        cout << endl;
+        return "";
     }
 }
 
@@ -39,7 +48,7 @@ string InsertValues::lookupId(const string& table, const map<string, string>& na
 void InsertValues::batchInsert(const string& table, const vector<json>& records, const json& tableConfig) {
     try {
         executor.executeQuery("BEGIN");
-        cout << endl << "Insertando datos en tabla: " << table << endl;
+        //cout << endl << "Insertando datos en tabla: " << table << endl;
 
         size_t batchSize = tableConfig.contains("batchSize") ? tableConfig["batchSize"].get<size_t>() : 1000;
         
@@ -60,15 +69,19 @@ void InsertValues::batchInsert(const string& table, const vector<json>& records,
             for (const auto& column : tableConfig["columns"]) {
                 string value = "";
                 if (column.contains("lookup")) {
-                    try {
-                        string naturalKeyValue = getValueFromJson(record, column["jsonPath"]);
-                        vector<string> naturalKeyValueVector = Utility::splitStringByDelimiter(naturalKeyValue, " ");
-                        map<string, string> naturalKeykeyValue = Utility::createNaturalKeyMap(column["lookup"]["naturalKey"], naturalKeyValueVector);
-                        value = lookupId(column["lookup"]["table"], naturalKeykeyValue);
+                    string naturalKeyValue = getValueFromJson(record, column["jsonPath"]);
+                    vector<string> naturalKeyValueVector = Utility::splitStringByDelimiter(naturalKeyValue, " ");
+                    map<string, string> naturalKeykeyValue = Utility::createNaturalKeyMap(column["lookup"]["naturalKey"], naturalKeyValueVector);
+                    value = lookupId(column["lookup"]["table"], naturalKeykeyValue);
+                    if(value.empty()) {
+                        validRecord = false;
+                        break;
+                    }
+/*                     try {
                     } catch (const std::exception& e) {
                         validRecord = false; 
                         break;
-                    }
+                    } */
                 } else {
                     value = getValueFromJson(record, column["jsonPath"]);
                     string type = column["type"].get<string>();
@@ -85,7 +98,7 @@ void InsertValues::batchInsert(const string& table, const vector<json>& records,
             }
             //cambiar esto para insertar en logs
             if (!validRecord) {
-                cout << "Registro omitido (fallo en clave foránea) ************************" << endl;
+                //cout << "Registro omitido (fallo en clave foránea) ************************" << endl;
                 continue;
             }
             currentRecord = currentRecord.substr(0, currentRecord.size() - 2) + "), ";
@@ -102,7 +115,7 @@ void InsertValues::batchInsert(const string& table, const vector<json>& records,
 
         if (count % batchSize != 0) {
             query = query.substr(0, query.size() - 2) + ";";
-            //cout<< "MDB: Query: " <<endl << query << endl;
+            cout<< "MDB: Query: " <<endl << query << endl;
             executor.executeQuery(query);
         }
 
@@ -115,7 +128,8 @@ void InsertValues::batchInsert(const string& table, const vector<json>& records,
 
 void InsertValues::processRelationships(const json& config, const json& relationshipsConfig, const json& data, const string& rootPath) {
     try {  
-        cout << endl << "estoy aqui" << endl;
+        //cout << endl << "estoy aqui" << endl;
+        //todo: cambiar, de momento solo se estan teniendo en cuenta las relaciones many to many
         for (const auto& rel : relationshipsConfig) {
             if (rel["type"] != "MANY_TO_MANY") continue;
 
@@ -136,8 +150,12 @@ void InsertValues::processRelationships(const json& config, const json& relation
                     fromNaturalKey[key.get<string>()] = getValueFromJson(fromRecord, key.get<string>());
                 }
                 string fromId = lookupId(fromTable, fromNaturalKey);
+                if (fromId.empty()) {
+                    cerr << "Advertencia: Omitiendo registro de " << fromTable << endl;//" (clave: " << fromNaturalKey << ")" << endl;
+                    continue;
+                }
 
-                cout << endl << "fromId: "<< fromId << endl;
+                //cout << endl << "fromId: "<< fromId << endl;
 
                 for (const auto& toData : fromRecord[toDataPath]) { 
                     map<string, string> toNaturalKey;
@@ -145,7 +163,11 @@ void InsertValues::processRelationships(const json& config, const json& relation
                         toNaturalKey[key.get<string>()] = getValueFromJson(toData, key.get<string>());
                     }
                     string toId = lookupId(toTable, toNaturalKey);
-                    cout << endl << "toId: "<< toId << endl;
+                    if (toId.empty()) {
+                        cerr << "Advertencia: Omitiendo relación hacia " << toTable << endl; //" (clave: " << toNaturalKey << ")" << endl;
+                        continue;
+                    }
+                    //cout << endl << "toId: "<< toId << endl;
                     // Construir registro para la tabla de unión
                     json junctionRecord;
                     for (const auto& colConfig : columnsConfig) {

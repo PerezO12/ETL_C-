@@ -12,8 +12,8 @@ void QueryExecutor::executeQuery(const string& query) {
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
         cerr << "Error en la consulta: " << PQerrorMessage(conn) << endl;
     } else {
-        cout << "Consulta ejecutada con éxito: " << endl;
-        cout << "Quer: " << query << endl;
+       // cout << "Consulta ejecutada con éxito: " << endl;
+        //cout << "Quer: " << query << endl;
     }
 
     PQclear(res);

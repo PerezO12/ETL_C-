@@ -1,170 +1,3453 @@
 {
-  "universidad": {
-    "alumnos": [
-      {
-        "nombre": "Carlos",
-        "apellido": "Gómez",
-        "sexo": "Masculino",
-        "edad": 21,
-        "facultad": "Ingeniería",
-        "asignaturas": [
-          {
-            "nombre": "Matemáticas Avanzadas",
-            "notas": [85, 90, 78]
-          },
-          {
-            "nombre": "Física",
-            "notas": [88, 92, 85]
-          }
-        ]
-      },
-      {
-        "nombre": "María",
-        "apellido": "Fernández",
-        "sexo": "Femenino",
-        "edad": 22,
-        "facultad": "Medicina",
-        "asignaturas": [
-          {
-            "nombre": "Anatomía",
-            "notas": [95, 89, 92]
-          },
-          {
-            "nombre": "Bioquímica",
-            "notas": [88, 91, 87]
-          }
-        ]
-      },
-      {
-        "nombre": "Juan",
-        "apellido": "Pérez",
-        "sexo": "Masculino",
-        "edad": 20,
-        "facultad": "Informática",
-        "asignaturas": [
-          {
-            "nombre": "Programación en C++",
-            "notas": [78, 84, 82]
-          },
-          {
-            "nombre": "Algoritmos",
-            "notas": [92, 88, 91]
-          }
-        ]
-      }
-    ],
-    "profesores": [
-      {
-        "nombre": "Javier",
-        "apellido": "López",
-        "sexo": "Masculino",
-        "edad": 45,
-        "catedra": "Matemáticas Avanzadas",
-        "facultad": "Ingeniería",
-        "aulas": ["Aula 101", "Aula 102"],
-        "cantidad_alumnos": 120
-      },
-      {
-        "nombre": "Laura",
-        "apellido": "Martínez",
-        "sexo": "Femenino",
-        "edad": 38,
-        "catedra": "Anatomía",
-        "facultad": "Medicina", 
-        "aulas": ["Aula 201"],
-        "cantidad_alumnos": 80
-      },
-      {
-        "nombre": "Pedro",
-        "apellido": "González",
-        "sexo": "Masculino",
-        "edad": 50,
-        "catedra": "Programación en C++",
-        "facultad": "Informática", 
-        "aulas": ["Aula 303", "Aula 304"],
-        "cantidad_alumnos": 100
-      },
-      {
-        "nombre": "Carlos",
-        "apellido": "Hernández",
-        "sexo": "Masculino",
-        "edad": 42,
-        "catedra": "Física",
-        "facultad": "Ingeniería", 
-        "aulas": ["Aula 105"],
-        "cantidad_alumnos": 90
-      },
-      {
-        "nombre": "Mariana",
-        "apellido": "Ruiz",
-        "sexo": "Femenino",
-        "edad": 37,
-        "catedra": "Bioquímica",
-        "facultad": "Medicina", 
-        "aulas": ["Aula 202"],
-        "cantidad_alumnos": 75
-      },
-      {
-        "nombre": "Ana",
-        "apellido": "Torres", 
-        "sexo": "Femenino",
-        "edad": 40,
-        "catedra": "Algoritmos",
-        "facultad": "Informática",
-        "aulas": ["Aula 305"],
-        "cantidad_alumnos": 85
-      }
-    ],
-    "asignaturas": [
-      {
-        "nombre": "Matemáticas Avanzadas",
-        "codigo": "MA101",
-        "profesor": "Javier López",
-        "facultad": "Ingeniería",
-        "horarios": ["Lunes 10:00-12:00", "Miércoles 10:00-12:00"]
-      },
-      {
-        "nombre": "Física",
-        "codigo": "F101",
-        "profesor": "Carlos Hernández", 
-        "facultad": "Ingeniería",
-        "horarios": ["Martes 9:00-11:00", "Jueves 9:00-11:00"]
-      },
-      {
-        "nombre": "Anatomía",
-        "codigo": "AN102",
-        "profesor": "Laura Martínez",
-        "facultad": "Medicina",
-        "horarios": ["Lunes 8:00-10:00", "Miércoles 8:00-10:00"]
-      },
-      {
-        "nombre": "Bioquímica",
-        "codigo": "BQ201",
-        "profesor": "Mariana Ruiz",  
-        "facultad": "Medicina",
-        "horarios": ["Martes 11:00-13:00", "Jueves 11:00-13:00"]
-      },
-      {
-        "nombre": "Programación en C++",
-        "codigo": "CPP201", 
-        "profesor": "Pedro González",
-        "facultad": "Informática",
-        "horarios": ["Lunes 15:00-17:00", "Miércoles 15:00-17:00"]
-      },
-      {
-        "nombre": "Algoritmos",
-        "codigo": "ALG301",
-        "profesor": "Ana Torres",
-        "facultad": "Informática",
-        "horarios": ["Viernes 9:00-11:00"]
-      },
-      {
-        "nombre": "NO TIENE PROFESOR",
-        "codigo": "ALG301",
-        "profesor": "No existe",
-        "facultad": "Informática",
-        "horarios": ["Viernes 9:00-11:00"]
-      }
-    ]
+    "universidad": {
+      "alumnos": [
+        {
+          "edad": 22,
+          "sexo": "Femenino",
+          "nombre": "Powers",
+          "apellido": "Mcneil",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                77,
+                77,
+                97
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                83,
+                79,
+                85
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 21,
+          "sexo": "Masculino",
+          "nombre": "Ann",
+          "apellido": "Dale",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                84,
+                62,
+                82
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                94,
+                85,
+                96
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 25,
+          "sexo": "Femenino",
+          "nombre": "Dunn",
+          "apellido": "Page",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                64,
+                62,
+                84
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                87,
+                92,
+                71
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 20,
+          "sexo": "Masculino",
+          "nombre": "Deloris",
+          "apellido": "Hall",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                92,
+                82,
+                75
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                97,
+                66,
+                97
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 18,
+          "sexo": "Masculino",
+          "nombre": "Martina",
+          "apellido": "Gonzalez",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                83,
+                86,
+                70
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                91,
+                96,
+                94
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 22,
+          "sexo": "Masculino",
+          "nombre": "Deana",
+          "apellido": "Meyer",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                72,
+                70,
+                66
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                63,
+                95,
+                73
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 26,
+          "sexo": "Masculino",
+          "nombre": "Hollie",
+          "apellido": "Gillespie",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                79,
+                71,
+                64
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                81,
+                64,
+                98
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 19,
+          "sexo": "Masculino",
+          "nombre": "Selena",
+          "apellido": "Fuller",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                63,
+                99,
+                90
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                73,
+                74,
+                72
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 19,
+          "sexo": "Femenino",
+          "nombre": "Lorrie",
+          "apellido": "Welch",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                64,
+                83,
+                76
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                84,
+                99,
+                74
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 19,
+          "sexo": "Femenino",
+          "nombre": "Lorna",
+          "apellido": "Barr",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                90,
+                63,
+                69
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                93,
+                94,
+                80
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 25,
+          "sexo": "Masculino",
+          "nombre": "Herrera",
+          "apellido": "Keller",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                89,
+                89,
+                90
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                61,
+                69,
+                68
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 20,
+          "sexo": "Femenino",
+          "nombre": "Paula",
+          "apellido": "Peterson",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                91,
+                95,
+                66
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                80,
+                80,
+                60
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 19,
+          "sexo": "Masculino",
+          "nombre": "Brown",
+          "apellido": "Bridges",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                88,
+                100,
+                74
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                83,
+                83,
+                93
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 20,
+          "sexo": "Masculino",
+          "nombre": "Millie",
+          "apellido": "Wilcox",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                85,
+                72,
+                93
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                99,
+                81,
+                83
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 23,
+          "sexo": "Masculino",
+          "nombre": "Allie",
+          "apellido": "Stevens",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                94,
+                93,
+                95
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                91,
+                95,
+                61
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Masculino",
+          "nombre": "Erickson",
+          "apellido": "Craft",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                72,
+                60,
+                75
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                89,
+                79,
+                81
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Masculino",
+          "nombre": "Mcdonald",
+          "apellido": "Cox",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                84,
+                98,
+                79
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                78,
+                89,
+                81
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 30,
+          "sexo": "Masculino",
+          "nombre": "Jeanie",
+          "apellido": "Gibbs",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                82,
+                89,
+                86
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                93,
+                83,
+                92
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 21,
+          "sexo": "Masculino",
+          "nombre": "Eve",
+          "apellido": "Finch",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                72,
+                63,
+                90
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                76,
+                76,
+                97
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 24,
+          "sexo": "Femenino",
+          "nombre": "Ila",
+          "apellido": "Mcgowan",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                87,
+                66,
+                74
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                92,
+                82,
+                84
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 26,
+          "sexo": "Femenino",
+          "nombre": "Lester",
+          "apellido": "Banks",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                91,
+                80,
+                100
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                76,
+                95,
+                84
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 30,
+          "sexo": "Masculino",
+          "nombre": "Flossie",
+          "apellido": "Casey",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                68,
+                89,
+                68
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                99,
+                84,
+                93
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 24,
+          "sexo": "Femenino",
+          "nombre": "Gail",
+          "apellido": "Jones",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                61,
+                64,
+                87
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                82,
+                62,
+                64
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Masculino",
+          "nombre": "Crosby",
+          "apellido": "Rodriquez",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                80,
+                62,
+                79
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                77,
+                99,
+                95
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 30,
+          "sexo": "Masculino",
+          "nombre": "Andrews",
+          "apellido": "Barker",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                96,
+                83,
+                75
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                100,
+                100,
+                98
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 26,
+          "sexo": "Masculino",
+          "nombre": "Jenifer",
+          "apellido": "Logan",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                98,
+                98,
+                61
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                82,
+                61,
+                61
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 27,
+          "sexo": "Femenino",
+          "nombre": "Mcgee",
+          "apellido": "Mckinney",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                80,
+                73,
+                79
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                96,
+                86,
+                74
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 26,
+          "sexo": "Femenino",
+          "nombre": "Elsa",
+          "apellido": "Wiggins",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                62,
+                89,
+                83
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                100,
+                68,
+                82
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 22,
+          "sexo": "Masculino",
+          "nombre": "Kidd",
+          "apellido": "Mason",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                94,
+                88,
+                78
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                88,
+                93,
+                89
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 26,
+          "sexo": "Masculino",
+          "nombre": "Chase",
+          "apellido": "Roach",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                87,
+                93,
+                96
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                82,
+                81,
+                87
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 26,
+          "sexo": "Masculino",
+          "nombre": "Katharine",
+          "apellido": "Holcomb",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                94,
+                85,
+                77
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                90,
+                81,
+                91
+              ],
+              "nombre": "Programación en C++"
+            }
+          ]
+        },
+        {
+          "edad": 27,
+          "sexo": "Masculino",
+          "nombre": "Mckenzie",
+          "apellido": "Cross",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                99,
+                69,
+                69
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                62,
+                62,
+                75
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 27,
+          "sexo": "Masculino",
+          "nombre": "Cooper",
+          "apellido": "Melton",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                93,
+                80,
+                88
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                80,
+                95,
+                67
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 22,
+          "sexo": "Masculino",
+          "nombre": "Sosa",
+          "apellido": "Higgins",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                87,
+                94,
+                82
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                79,
+                93,
+                60
+              ],
+              "nombre": "Programación en C++"
+            }
+          ]
+        },
+        {
+          "edad": 30,
+          "sexo": "Masculino",
+          "nombre": "Berta",
+          "apellido": "Mcgee",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                69,
+                83,
+                98
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                74,
+                95,
+                60
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 23,
+          "sexo": "Masculino",
+          "nombre": "Camille",
+          "apellido": "Hardy",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                69,
+                100,
+                88
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                81,
+                94,
+                100
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 29,
+          "sexo": "Masculino",
+          "nombre": "Gray",
+          "apellido": "Rasmussen",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                81,
+                76,
+                81
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                79,
+                65,
+                81
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Femenino",
+          "nombre": "Phyllis",
+          "apellido": "Stanton",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                87,
+                70,
+                71
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                88,
+                97,
+                63
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Masculino",
+          "nombre": "Mcdowell",
+          "apellido": "Giles",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                81,
+                74,
+                91
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                84,
+                75,
+                64
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 20,
+          "sexo": "Masculino",
+          "nombre": "Velasquez",
+          "apellido": "Salas",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                62,
+                78,
+                100
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                62,
+                98,
+                99
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Femenino",
+          "nombre": "Barlow",
+          "apellido": "Mcintosh",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                86,
+                73,
+                77
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                63,
+                77,
+                77
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 21,
+          "sexo": "Masculino",
+          "nombre": "Morrow",
+          "apellido": "Norman",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                75,
+                93,
+                61
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                60,
+                99,
+                91
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 23,
+          "sexo": "Femenino",
+          "nombre": "Watts",
+          "apellido": "Duffy",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                60,
+                78,
+                88
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                92,
+                68,
+                91
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 24,
+          "sexo": "Masculino",
+          "nombre": "Dickerson",
+          "apellido": "Russell",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                87,
+                85,
+                76
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                64,
+                71,
+                74
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 23,
+          "sexo": "Masculino",
+          "nombre": "Bailey",
+          "apellido": "Moreno",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                80,
+                79,
+                79
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                93,
+                97,
+                63
+              ],
+              "nombre": "Programación en C++"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Masculino",
+          "nombre": "Louisa",
+          "apellido": "Silva",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                75,
+                61,
+                72
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                88,
+                65,
+                83
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 27,
+          "sexo": "Masculino",
+          "nombre": "Chris",
+          "apellido": "Wilkinson",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                65,
+                82,
+                79
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                92,
+                61,
+                69
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 26,
+          "sexo": "Masculino",
+          "nombre": "Ashlee",
+          "apellido": "Mann",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                69,
+                64,
+                61
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                71,
+                75,
+                66
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 23,
+          "sexo": "Femenino",
+          "nombre": "Terry",
+          "apellido": "Buckner",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                86,
+                83,
+                98
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                78,
+                68,
+                91
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 26,
+          "sexo": "Femenino",
+          "nombre": "James",
+          "apellido": "Glass",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                86,
+                76,
+                76
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                76,
+                66,
+                93
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 25,
+          "sexo": "Femenino",
+          "nombre": "Aurelia",
+          "apellido": "Cruz",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                90,
+                77,
+                61
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                98,
+                62,
+                85
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 27,
+          "sexo": "Femenino",
+          "nombre": "Alvarez",
+          "apellido": "Monroe",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                66,
+                100,
+                92
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                62,
+                80,
+                64
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 18,
+          "sexo": "Masculino",
+          "nombre": "Wilcox",
+          "apellido": "Dawson",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                70,
+                76,
+                99
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                67,
+                99,
+                84
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 23,
+          "sexo": "Femenino",
+          "nombre": "Ramona",
+          "apellido": "Kline",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                70,
+                99,
+                91
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                89,
+                82,
+                94
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 25,
+          "sexo": "Masculino",
+          "nombre": "Tonya",
+          "apellido": "Neal",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                67,
+                85,
+                86
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                87,
+                71,
+                71
+              ],
+              "nombre": "Programación en C++"
+            }
+          ]
+        },
+        {
+          "edad": 24,
+          "sexo": "Masculino",
+          "nombre": "Marguerite",
+          "apellido": "Alford",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                84,
+                83,
+                83
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                67,
+                68,
+                82
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 19,
+          "sexo": "Masculino",
+          "nombre": "Arnold",
+          "apellido": "Burke",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                95,
+                63,
+                83
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                98,
+                94,
+                65
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 18,
+          "sexo": "Masculino",
+          "nombre": "Cara",
+          "apellido": "Harrington",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                64,
+                82,
+                80
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                79,
+                76,
+                89
+              ],
+              "nombre": "Programación en C++"
+            }
+          ]
+        },
+        {
+          "edad": 18,
+          "sexo": "Masculino",
+          "nombre": "Dionne",
+          "apellido": "Christensen",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                89,
+                86,
+                94
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                92,
+                75,
+                75
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 30,
+          "sexo": "Femenino",
+          "nombre": "Hanson",
+          "apellido": "Tucker",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                79,
+                72,
+                82
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                97,
+                61,
+                90
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 25,
+          "sexo": "Masculino",
+          "nombre": "Strong",
+          "apellido": "Mullins",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                61,
+                84,
+                65
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                60,
+                71,
+                67
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 22,
+          "sexo": "Masculino",
+          "nombre": "Chang",
+          "apellido": "Kaufman",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                67,
+                96,
+                69
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                76,
+                93,
+                68
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Masculino",
+          "nombre": "Blanchard",
+          "apellido": "Jordan",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                87,
+                90,
+                77
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                80,
+                92,
+                100
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Femenino",
+          "nombre": "Mcguire",
+          "apellido": "Knox",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                93,
+                86,
+                79
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                79,
+                83,
+                89
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 22,
+          "sexo": "Masculino",
+          "nombre": "Esmeralda",
+          "apellido": "Britt",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                87,
+                81,
+                77
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                69,
+                62,
+                70
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 19,
+          "sexo": "Femenino",
+          "nombre": "Cox",
+          "apellido": "Randall",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                71,
+                95,
+                87
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                70,
+                69,
+                89
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 22,
+          "sexo": "Femenino",
+          "nombre": "Hopper",
+          "apellido": "Riddle",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                71,
+                90,
+                74
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                61,
+                89,
+                63
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 26,
+          "sexo": "Masculino",
+          "nombre": "Bernard",
+          "apellido": "Gilmore",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                70,
+                96,
+                69
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                71,
+                75,
+                64
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 19,
+          "sexo": "Masculino",
+          "nombre": "Cathy",
+          "apellido": "Rose",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                100,
+                84,
+                99
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                70,
+                95,
+                95
+              ],
+              "nombre": "Programación en C++"
+            }
+          ]
+        },
+        {
+          "edad": 21,
+          "sexo": "Masculino",
+          "nombre": "Solomon",
+          "apellido": "Cooke",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                92,
+                64,
+                72
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                67,
+                70,
+                65
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 30,
+          "sexo": "Femenino",
+          "nombre": "Logan",
+          "apellido": "Daniel",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                79,
+                76,
+                69
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                89,
+                64,
+                78
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 18,
+          "sexo": "Masculino",
+          "nombre": "Karla",
+          "apellido": "Dodson",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                60,
+                68,
+                75
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                81,
+                81,
+                88
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 22,
+          "sexo": "Masculino",
+          "nombre": "Hansen",
+          "apellido": "Farmer",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                94,
+                66,
+                62
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                100,
+                92,
+                63
+              ],
+              "nombre": "Programación en C++"
+            }
+          ]
+        },
+        {
+          "edad": 30,
+          "sexo": "Masculino",
+          "nombre": "Billie",
+          "apellido": "Chambers",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                69,
+                81,
+                84
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                87,
+                72,
+                94
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 27,
+          "sexo": "Masculino",
+          "nombre": "Carr",
+          "apellido": "Holmes",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                92,
+                74,
+                82
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                86,
+                88,
+                71
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 30,
+          "sexo": "Masculino",
+          "nombre": "Janelle",
+          "apellido": "Atkins",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                68,
+                100,
+                91
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                100,
+                95,
+                76
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 21,
+          "sexo": "Masculino",
+          "nombre": "Guerrero",
+          "apellido": "Osborne",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                60,
+                92,
+                79
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                91,
+                63,
+                66
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 29,
+          "sexo": "Masculino",
+          "nombre": "Burton",
+          "apellido": "Carrillo",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                68,
+                85,
+                76
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                98,
+                72,
+                83
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 18,
+          "sexo": "Femenino",
+          "nombre": "Elliott",
+          "apellido": "Parker",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                91,
+                86,
+                83
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                67,
+                80,
+                67
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 20,
+          "sexo": "Masculino",
+          "nombre": "Freida",
+          "apellido": "Moses",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                81,
+                62,
+                76
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                62,
+                63,
+                85
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 20,
+          "sexo": "Masculino",
+          "nombre": "Daniel",
+          "apellido": "Wallace",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                76,
+                74,
+                78
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                73,
+                85,
+                64
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 19,
+          "sexo": "Femenino",
+          "nombre": "Mia",
+          "apellido": "Pace",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                89,
+                85,
+                67
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                89,
+                72,
+                61
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 22,
+          "sexo": "Masculino",
+          "nombre": "Sharon",
+          "apellido": "Thomas",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                65,
+                72,
+                67
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                64,
+                96,
+                89
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 19,
+          "sexo": "Femenino",
+          "nombre": "Cochran",
+          "apellido": "Guzman",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                83,
+                77,
+                62
+              ],
+              "nombre": "Bioquímica"
+            },
+            {
+              "notas": [
+                100,
+                96,
+                89
+              ],
+              "nombre": "Programación en C++"
+            }
+          ]
+        },
+        {
+          "edad": 22,
+          "sexo": "Masculino",
+          "nombre": "Ruth",
+          "apellido": "Brock",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                89,
+                85,
+                94
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                94,
+                79,
+                92
+              ],
+              "nombre": "Programación en C++"
+            }
+          ]
+        },
+        {
+          "edad": 19,
+          "sexo": "Masculino",
+          "nombre": "Rae",
+          "apellido": "Kirkland",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                95,
+                69,
+                71
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                79,
+                83,
+                97
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Masculino",
+          "nombre": "Hubbard",
+          "apellido": "Buchanan",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                80,
+                87,
+                82
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                80,
+                85,
+                84
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 21,
+          "sexo": "Masculino",
+          "nombre": "Cunningham",
+          "apellido": "Chang",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                68,
+                95,
+                82
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                72,
+                81,
+                85
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 20,
+          "sexo": "Femenino",
+          "nombre": "Kelley",
+          "apellido": "Calhoun",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                71,
+                74,
+                89
+              ],
+              "nombre": "Física"
+            },
+            {
+              "notas": [
+                91,
+                78,
+                82
+              ],
+              "nombre": "Física"
+            }
+          ]
+        },
+        {
+          "edad": 19,
+          "sexo": "Masculino",
+          "nombre": "Veronica",
+          "apellido": "Austin",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                94,
+                75,
+                62
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                85,
+                63,
+                78
+              ],
+              "nombre": "Programación en C++"
+            }
+          ]
+        },
+        {
+          "edad": 18,
+          "sexo": "Femenino",
+          "nombre": "Karyn",
+          "apellido": "Patterson",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                89,
+                94,
+                91
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                72,
+                70,
+                75
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 22,
+          "sexo": "Femenino",
+          "nombre": "Ewing",
+          "apellido": "Bishop",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                80,
+                97,
+                73
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                63,
+                85,
+                72
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 21,
+          "sexo": "Femenino",
+          "nombre": "Alford",
+          "apellido": "Schneider",
+          "facultad": "Medicina",
+          "asignaturas": [
+            {
+              "notas": [
+                81,
+                72,
+                85
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                80,
+                93,
+                74
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 24,
+          "sexo": "Femenino",
+          "nombre": "Darla",
+          "apellido": "Branch",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                77,
+                60,
+                82
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                95,
+                70,
+                88
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 24,
+          "sexo": "Masculino",
+          "nombre": "Wall",
+          "apellido": "Roberson",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                94,
+                80,
+                98
+              ],
+              "nombre": "Anatomía"
+            },
+            {
+              "notas": [
+                64,
+                73,
+                88
+              ],
+              "nombre": "Anatomía"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Masculino",
+          "nombre": "Hendrix",
+          "apellido": "Pennington",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                86,
+                97,
+                85
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                94,
+                91,
+                63
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        },
+        {
+          "edad": 30,
+          "sexo": "Femenino",
+          "nombre": "Tabatha",
+          "apellido": "Mcdaniel",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                74,
+                91,
+                62
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            },
+            {
+              "notas": [
+                76,
+                97,
+                76
+              ],
+              "nombre": "Algoritmos"
+            }
+          ]
+        },
+        {
+          "edad": 20,
+          "sexo": "Masculino",
+          "nombre": "Randall",
+          "apellido": "Rosa",
+          "facultad": "Ingeniería",
+          "asignaturas": [
+            {
+              "notas": [
+                69,
+                91,
+                94
+              ],
+              "nombre": "Programación en C++"
+            },
+            {
+              "notas": [
+                90,
+                79,
+                70
+              ],
+              "nombre": "Bioquímica"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Masculino",
+          "nombre": "Richards",
+          "apellido": "Hickman",
+          "facultad": "Arquitectura",
+          "asignaturas": [
+            {
+              "notas": [
+                98,
+                71,
+                70
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                98,
+                78,
+                79
+              ],
+              "nombre": "Programación en C++"
+            }
+          ]
+        },
+        {
+          "edad": 28,
+          "sexo": "Masculino",
+          "nombre": "Hodge",
+          "apellido": "Simpson",
+          "facultad": "Informática",
+          "asignaturas": [
+            {
+              "notas": [
+                82,
+                64,
+                69
+              ],
+              "nombre": "Algoritmos"
+            },
+            {
+              "notas": [
+                91,
+                86,
+                66
+              ],
+              "nombre": "Matemáticas Avanzadas"
+            }
+          ]
+        }
+      ],
+      "profesores": [
+        {
+          "edad": 49,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 102"
+          ],
+          "nombre": "Carole",
+          "catedra": "Bioquímica",
+          "apellido": "Garner",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 93
+        },
+        {
+          "edad": 32,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 202",
+            "Aula 305"
+          ],
+          "nombre": "Sargent",
+          "catedra": "Matemáticas Avanzadas",
+          "apellido": "Valenzuela",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 113
+        },
+        {
+          "edad": 60,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 201",
+            "Aula 105"
+          ],
+          "nombre": "Franks",
+          "catedra": "Bioquímica",
+          "apellido": "Weiss",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 74
+        },
+        {
+          "edad": 65,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 305",
+            "Aula 101"
+          ],
+          "nombre": "Gilliam",
+          "catedra": "Algoritmos",
+          "apellido": "Mathis",
+          "facultad": "Informática",
+          "cantidad_alumnos": 74
+        },
+        {
+          "edad": 48,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 305"
+          ],
+          "nombre": "Alta",
+          "catedra": "Bioquímica",
+          "apellido": "Cunningham",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 105
+        },
+        {
+          "edad": 38,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 202",
+            "Aula 101",
+            "Aula 305"
+          ],
+          "nombre": "Webster",
+          "catedra": "Matemáticas Avanzadas",
+          "apellido": "Warren",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 62
+        },
+        {
+          "edad": 53,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 305"
+          ],
+          "nombre": "Barbara",
+          "catedra": "Anatomía",
+          "apellido": "Hamilton",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 98
+        },
+        {
+          "edad": 50,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 202"
+          ],
+          "nombre": "Tanisha",
+          "catedra": "Anatomía",
+          "apellido": "Burgess",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 76
+        },
+        {
+          "edad": 34,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 102",
+            "Aula 304"
+          ],
+          "nombre": "Millicent",
+          "catedra": "Matemáticas Avanzadas",
+          "apellido": "Ryan",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 84
+        },
+        {
+          "edad": 47,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 105"
+          ],
+          "nombre": "Molly",
+          "catedra": "Física",
+          "apellido": "Fields",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 65
+        },
+        {
+          "edad": 44,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 101",
+            "Aula 102",
+            "Aula 201"
+          ],
+          "nombre": "Bettye",
+          "catedra": "Anatomía",
+          "apellido": "Blevins",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 70
+        },
+        {
+          "edad": 52,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 105",
+            "Aula 201",
+            "Aula 201"
+          ],
+          "nombre": "Reid",
+          "catedra": "Anatomía",
+          "apellido": "Mccarty",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 78
+        },
+        {
+          "edad": 56,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 305"
+          ],
+          "nombre": "Houston",
+          "catedra": "Matemáticas Avanzadas",
+          "apellido": "Bolton",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 56
+        },
+        {
+          "edad": 53,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 304",
+            "Aula 303"
+          ],
+          "nombre": "Rojas",
+          "catedra": "Física",
+          "apellido": "Mcconnell",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 63
+        },
+        {
+          "edad": 59,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 202",
+            "Aula 102",
+            "Aula 102"
+          ],
+          "nombre": "Dominguez",
+          "catedra": "Física",
+          "apellido": "Stephens",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 122
+        },
+        {
+          "edad": 53,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 202"
+          ],
+          "nombre": "Yesenia",
+          "catedra": "Física",
+          "apellido": "Rhodes",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 115
+        },
+        {
+          "edad": 61,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 201",
+            "Aula 303",
+            "Aula 202"
+          ],
+          "nombre": "Claudette",
+          "catedra": "Física",
+          "apellido": "Harmon",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 124
+        },
+        {
+          "edad": 43,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 102",
+            "Aula 201",
+            "Aula 105"
+          ],
+          "nombre": "Parks",
+          "catedra": "Anatomía",
+          "apellido": "Lynn",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 127
+        },
+        {
+          "edad": 56,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 303"
+          ],
+          "nombre": "Leblanc",
+          "catedra": "Bioquímica",
+          "apellido": "Carlson",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 115
+        },
+        {
+          "edad": 46,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 303"
+          ],
+          "nombre": "Carla",
+          "catedra": "Algoritmos",
+          "apellido": "Huffman",
+          "facultad": "Informática",
+          "cantidad_alumnos": 126
+        },
+        {
+          "edad": 41,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 304"
+          ],
+          "nombre": "Heath",
+          "catedra": "Física",
+          "apellido": "Moss",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 60
+        },
+        {
+          "edad": 65,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 304",
+            "Aula 303",
+            "Aula 201"
+          ],
+          "nombre": "Donovan",
+          "catedra": "Programación en C++",
+          "apellido": "Hancock",
+          "facultad": "Informática",
+          "cantidad_alumnos": 93
+        },
+        {
+          "edad": 32,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 202",
+            "Aula 304"
+          ],
+          "nombre": "Jeannette",
+          "catedra": "Bioquímica",
+          "apellido": "Gilbert",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 64
+        },
+        {
+          "edad": 64,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 303"
+          ],
+          "nombre": "Tracey",
+          "catedra": "Algoritmos",
+          "apellido": "Mckee",
+          "facultad": "Informática",
+          "cantidad_alumnos": 54
+        },
+        {
+          "edad": 36,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 201"
+          ],
+          "nombre": "Leticia",
+          "catedra": "Física",
+          "apellido": "Yates",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 111
+        },
+        {
+          "edad": 54,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 304",
+            "Aula 202"
+          ],
+          "nombre": "Kirkland",
+          "catedra": "Matemáticas Avanzadas",
+          "apellido": "Morrow",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 86
+        },
+        {
+          "edad": 58,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 304",
+            "Aula 105"
+          ],
+          "nombre": "Beasley",
+          "catedra": "Bioquímica",
+          "apellido": "Long",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 109
+        },
+        {
+          "edad": 50,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 102",
+            "Aula 303"
+          ],
+          "nombre": "Chandler",
+          "catedra": "Anatomía",
+          "apellido": "Mcdowell",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 73
+        },
+        {
+          "edad": 49,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 102",
+            "Aula 105"
+          ],
+          "nombre": "Erna",
+          "catedra": "Anatomía",
+          "apellido": "Witt",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 113
+        },
+        {
+          "edad": 41,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 102"
+          ],
+          "nombre": "Lynette",
+          "catedra": "Bioquímica",
+          "apellido": "Espinoza",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 78
+        },
+        {
+          "edad": 36,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 305",
+            "Aula 303"
+          ],
+          "nombre": "Parsons",
+          "catedra": "Anatomía",
+          "apellido": "Barton",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 82
+        },
+        {
+          "edad": 63,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 201"
+          ],
+          "nombre": "Weeks",
+          "catedra": "Algoritmos",
+          "apellido": "Valencia",
+          "facultad": "Informática",
+          "cantidad_alumnos": 56
+        },
+        {
+          "edad": 31,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 105",
+            "Aula 305",
+            "Aula 201"
+          ],
+          "nombre": "Gibbs",
+          "catedra": "Algoritmos",
+          "apellido": "Goff",
+          "facultad": "Informática",
+          "cantidad_alumnos": 102
+        },
+        {
+          "edad": 62,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 305"
+          ],
+          "nombre": "Rocha",
+          "catedra": "Anatomía",
+          "apellido": "Stanley",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 110
+        },
+        {
+          "edad": 41,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 304",
+            "Aula 304"
+          ],
+          "nombre": "Cotton",
+          "catedra": "Programación en C++",
+          "apellido": "Dean",
+          "facultad": "Informática",
+          "cantidad_alumnos": 105
+        },
+        {
+          "edad": 45,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 202",
+            "Aula 105",
+            "Aula 304"
+          ],
+          "nombre": "Genevieve",
+          "catedra": "Matemáticas Avanzadas",
+          "apellido": "Williamson",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 133
+        },
+        {
+          "edad": 36,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 304",
+            "Aula 105"
+          ],
+          "nombre": "Dyer",
+          "catedra": "Anatomía",
+          "apellido": "Lucas",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 96
+        },
+        {
+          "edad": 61,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 304",
+            "Aula 201",
+            "Aula 202"
+          ],
+          "nombre": "Cantu",
+          "catedra": "Anatomía",
+          "apellido": "Holloway",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 136
+        },
+        {
+          "edad": 48,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 304",
+            "Aula 202",
+            "Aula 304"
+          ],
+          "nombre": "Woodard",
+          "catedra": "Programación en C++",
+          "apellido": "Rivers",
+          "facultad": "Informática",
+          "cantidad_alumnos": 93
+        },
+        {
+          "edad": 65,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 105",
+            "Aula 102",
+            "Aula 105"
+          ],
+          "nombre": "Nguyen",
+          "catedra": "Programación en C++",
+          "apellido": "Leblanc",
+          "facultad": "Informática",
+          "cantidad_alumnos": 149
+        },
+        {
+          "edad": 43,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 202",
+            "Aula 201",
+            "Aula 201"
+          ],
+          "nombre": "Allison",
+          "catedra": "Programación en C++",
+          "apellido": "Castro",
+          "facultad": "Informática",
+          "cantidad_alumnos": 147
+        },
+        {
+          "edad": 46,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 102"
+          ],
+          "nombre": "Tate",
+          "catedra": "Bioquímica",
+          "apellido": "Coffey",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 95
+        },
+        {
+          "edad": 64,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 105"
+          ],
+          "nombre": "Gale",
+          "catedra": "Física",
+          "apellido": "Lara",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 50
+        },
+        {
+          "edad": 47,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 102"
+          ],
+          "nombre": "Holt",
+          "catedra": "Matemáticas Avanzadas",
+          "apellido": "Spears",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 104
+        },
+        {
+          "edad": 43,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 201",
+            "Aula 303",
+            "Aula 201"
+          ],
+          "nombre": "Jimmie",
+          "catedra": "Matemáticas Avanzadas",
+          "apellido": "Sharpe",
+          "facultad": "Ingeniería",
+          "cantidad_alumnos": 111
+        },
+        {
+          "edad": 57,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 303"
+          ],
+          "nombre": "Francesca",
+          "catedra": "Bioquímica",
+          "apellido": "Ortiz",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 148
+        },
+        {
+          "edad": 31,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 201"
+          ],
+          "nombre": "Shields",
+          "catedra": "Algoritmos",
+          "apellido": "Turner",
+          "facultad": "Informática",
+          "cantidad_alumnos": 90
+        },
+        {
+          "edad": 59,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 105"
+          ],
+          "nombre": "Amparo",
+          "catedra": "Bioquímica",
+          "apellido": "Lloyd",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 134
+        },
+        {
+          "edad": 34,
+          "sexo": "Masculino",
+          "aulas": [
+            "Aula 304"
+          ],
+          "nombre": "Nora",
+          "catedra": "Bioquímica",
+          "apellido": "Lane",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 146
+        },
+        {
+          "edad": 58,
+          "sexo": "Femenino",
+          "aulas": [
+            "Aula 304",
+            "Aula 201",
+            "Aula 303"
+          ],
+          "nombre": "Oneill",
+          "catedra": "Bioquímica",
+          "apellido": "Rojas",
+          "facultad": "Medicina",
+          "cantidad_alumnos": 150
+        }
+      ],
+      "asignaturas": [
+        {
+          "codigo": "ALG268",
+          "nombre": "Algoritmos",
+          "facultad": "Informática",
+          "horarios": [
+            "Viernes 9:00-11:00",
+            "Viernes 9:00-11:00"
+          ],
+          "profesor": "Trudy Wade"
+        },
+        {
+          "codigo": "AN189",
+          "nombre": "Anatomía",
+          "facultad": "Medicina",
+          "horarios": [
+            "Miércoles 10:00-12:00",
+            "Miércoles 8:00-10:00"
+          ],
+          "profesor": "Beatrice Puckett"
+        },
+        {
+          "codigo": "MA733",
+          "nombre": "Matemáticas Avanzadas",
+          "facultad": "Ingeniería",
+          "horarios": [
+            "Jueves 11:00-13:00",
+            "Martes 11:00-13:00"
+          ],
+          "profesor": "Letitia Osborn"
+        },
+        {
+          "codigo": "F505",
+          "nombre": "Física",
+          "facultad": "Ingeniería",
+          "horarios": [
+            "Martes 11:00-13:00",
+            "Lunes 15:00-17:00"
+          ],
+          "profesor": "Maribel Walsh"
+        },
+        {
+          "codigo": "NA947",
+          "nombre": "NO TIENE PROFESOR",
+          "facultad": "Medicina",
+          "horarios": [
+            "Miércoles 8:00-10:00",
+            "Viernes 9:00-11:00"
+          ],
+          "profesor": "No existe"
+        },
+        {
+          "codigo": "NA665",
+          "nombre": "NO TIENE PROFESOR",
+          "facultad": "Medicina",
+          "horarios": [
+            "Jueves 9:00-11:00",
+            "Miércoles 10:00-12:00"
+          ],
+          "profesor": "No existe"
+        },
+        {
+          "codigo": "MA417",
+          "nombre": "Matemáticas Avanzadas",
+          "facultad": "Ingeniería",
+          "horarios": [
+            "Jueves 11:00-13:00",
+            "Miércoles 8:00-10:00"
+          ],
+          "profesor": "Amy Becker"
+        },
+        {
+          "codigo": "F912",
+          "nombre": "Física",
+          "facultad": "Ingeniería",
+          "horarios": [
+            "Jueves 9:00-11:00",
+            "Lunes 15:00-17:00"
+          ],
+          "profesor": "Earline Steele"
+        },
+        {
+          "codigo": "ALG566",
+          "nombre": "Algoritmos",
+          "facultad": "Informática",
+          "horarios": [
+            "Viernes 9:00-11:00",
+            "Lunes 15:00-17:00"
+          ],
+          "profesor": "Dennis Patton"
+        },
+        {
+          "codigo": "NA669",
+          "nombre": "NO TIENE PROFESOR",
+          "facultad": "Informática",
+          "horarios": [
+            "Viernes 9:00-11:00",
+            "Lunes 10:00-12:00"
+          ],
+          "profesor": "No existe"
+        },
+        {
+          "codigo": "MA903",
+          "nombre": "Matemáticas Avanzadas",
+          "facultad": "Ingeniería",
+          "horarios": [
+            "Lunes 8:00-10:00",
+            "Martes 9:00-11:00"
+          ],
+          "profesor": "Sonja Wright"
+        },
+        {
+          "codigo": "MA394",
+          "nombre": "Matemáticas Avanzadas",
+          "facultad": "Ingeniería",
+          "horarios": [
+            "Viernes 9:00-11:00",
+            "Lunes 8:00-10:00"
+          ],
+          "profesor": "Stark Foreman"
+        },
+        {
+          "codigo": "ALG148",
+          "nombre": "Algoritmos",
+          "facultad": "Informática",
+          "horarios": [
+            "Miércoles 10:00-12:00",
+            "Lunes 8:00-10:00"
+          ],
+          "profesor": "Aimee Petty"
+        },
+        {
+          "codigo": "ALG252",
+          "nombre": "Algoritmos",
+          "facultad": "Informática",
+          "horarios": [
+            "Miércoles 8:00-10:00",
+            "Martes 9:00-11:00"
+          ],
+          "profesor": "Brittany Farley"
+        },
+        {
+          "codigo": "ALG484",
+          "nombre": "Algoritmos",
+          "facultad": "Informática",
+          "horarios": [
+            "Lunes 10:00-12:00",
+            "Miércoles 8:00-10:00"
+          ],
+          "profesor": "Rios Myers"
+        },
+        {
+          "codigo": "NA387",
+          "nombre": "NO TIENE PROFESOR",
+          "facultad": "Medicina",
+          "horarios": [
+            "Viernes 9:00-11:00",
+            "Martes 11:00-13:00"
+          ],
+          "profesor": "No existe"
+        },
+        {
+          "codigo": "CPP172",
+          "nombre": "Programación en C++",
+          "facultad": "Informática",
+          "horarios": [
+            "Miércoles 10:00-12:00",
+            "Viernes 9:00-11:00"
+          ],
+          "profesor": "Jamie Flowers"
+        },
+        {
+          "codigo": "BQ526",
+          "nombre": "Bioquímica",
+          "facultad": "Medicina",
+          "horarios": [
+            "Miércoles 8:00-10:00",
+            "Jueves 9:00-11:00"
+          ],
+          "profesor": "Kinney Head"
+        },
+        {
+          "codigo": "MA483",
+          "nombre": "Matemáticas Avanzadas",
+          "facultad": "Ingeniería",
+          "horarios": [
+            "Miércoles 8:00-10:00",
+            "Miércoles 15:00-17:00"
+          ],
+          "profesor": "Diann Marks"
+        },
+        {
+          "codigo": "BQ222",
+          "nombre": "Bioquímica",
+          "facultad": "Medicina",
+          "horarios": [
+            "Jueves 11:00-13:00",
+            "Martes 9:00-11:00"
+          ],
+          "profesor": "Greta Reynolds"
+        },
+        {
+          "codigo": "ALG280",
+          "nombre": "Algoritmos",
+          "facultad": "Informática",
+          "horarios": [
+            "Lunes 8:00-10:00",
+            "Miércoles 8:00-10:00"
+          ],
+          "profesor": "Randolph Pitts"
+        },
+        {
+          "codigo": "MA473",
+          "nombre": "Matemáticas Avanzadas",
+          "facultad": "Ingeniería",
+          "horarios": [
+            "Miércoles 10:00-12:00",
+            "Martes 11:00-13:00"
+          ],
+          "profesor": "Jordan Price"
+        },
+        {
+          "codigo": "AN171",
+          "nombre": "Anatomía",
+          "facultad": "Medicina",
+          "horarios": [
+            "Lunes 10:00-12:00",
+            "Miércoles 10:00-12:00"
+          ],
+          "profesor": "Dawson Hester"
+        },
+        {
+          "codigo": "ALG304",
+          "nombre": "Algoritmos",
+          "facultad": "Informática",
+          "horarios": [
+            "Viernes 9:00-11:00",
+            "Miércoles 15:00-17:00"
+          ],
+          "profesor": "Mabel Vincent"
+        },
+        {
+          "codigo": "NA949",
+          "nombre": "NO TIENE PROFESOR",
+          "facultad": "Medicina",
+          "horarios": [
+            "Lunes 15:00-17:00",
+            "Viernes 9:00-11:00"
+          ],
+          "profesor": "No existe"
+        },
+        {
+          "codigo": "MA111",
+          "nombre": "Matemáticas Avanzadas",
+          "facultad": "Ingeniería",
+          "horarios": [
+            "Jueves 9:00-11:00",
+            "Lunes 8:00-10:00"
+          ],
+          "profesor": "Dina Bradford"
+        },
+        {
+          "codigo": "CPP961",
+          "nombre": "Programación en C++",
+          "facultad": "Informática",
+          "horarios": [
+            "Martes 9:00-11:00",
+            "Viernes 9:00-11:00"
+          ],
+          "profesor": "Dona Richard"
+        },
+        {
+          "codigo": "F622",
+          "nombre": "Física",
+          "facultad": "Ingeniería",
+          "horarios": [
+            "Martes 9:00-11:00",
+            "Lunes 10:00-12:00"
+          ],
+          "profesor": "Church Vazquez"
+        },
+        {
+          "codigo": "F140",
+          "nombre": "Física",
+          "facultad": "Ingeniería",
+          "horarios": [
+            "Miércoles 15:00-17:00",
+            "Jueves 11:00-13:00"
+          ],
+          "profesor": "Brady Obrien"
+        },
+        {
+          "codigo": "MA181",
+          "nombre": "Matemáticas Avanzadas",
+          "facultad": "Ingeniería",
+          "horarios": [
+            "Jueves 11:00-13:00",
+            "Miércoles 10:00-12:00"
+          ],
+          "profesor": "Thompson Sweet"
+        }
+      ]
+    }
   }
-}
